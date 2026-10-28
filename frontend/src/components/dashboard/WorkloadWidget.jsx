@@ -44,8 +44,8 @@ export const WorkloadWidget = ({ workload }) => {
               key={member.user_id}
               className="p-4.5 rounded-2xl bg-[#FAF7F2] border border-[#ECE0D0] hover:border-orange-200 transition-colors"
             >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-3">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                <div className="flex items-center gap-3 min-w-0">
                   <img
                     src={
                       member.avatar_url ||
@@ -54,8 +54,8 @@ export const WorkloadWidget = ({ workload }) => {
                     alt={member.name}
                     className="w-10 h-10 rounded-full ring-2 ring-orange-200 bg-orange-50 shrink-0"
                   />
-                  <div>
-                    <h4 className="text-sm font-bold text-stone-900">{member.name}</h4>
+                  <div className="min-w-0">
+                    <h4 className="text-sm font-bold text-stone-900 truncate">{member.name}</h4>
                     <div className="text-xs text-stone-500 flex flex-wrap items-center gap-2 mt-0.5">
                       <span className="font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 text-[11px]">
                         {doneTasks} Selesai
@@ -77,8 +77,8 @@ export const WorkloadWidget = ({ workload }) => {
                   </div>
                 </div>
 
-                <div className="text-right">
-                  <div className="text-base font-extrabold text-stone-900">
+                <div className="text-left sm:text-right pl-13 sm:pl-0 flex items-center sm:block justify-between">
+                  <div className="text-sm sm:text-base font-extrabold text-stone-900">
                     {activeTasks} Tugas Aktif
                   </div>
                   <div className="text-[10px] text-stone-400 font-semibold uppercase tracking-wider">

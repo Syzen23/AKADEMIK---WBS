@@ -91,7 +91,7 @@ export const ProjectTopBar = ({
                 {project?.course_name || 'Matakuliah'}
               </span>
               <span>/</span>
-              <span className="text-stone-500 font-medium truncate max-w-[200px]" title={project?.title}>
+              <span className="text-stone-500 font-medium truncate max-w-[120px] sm:max-w-[200px]" title={project?.title}>
                 {project?.title || 'Ruang Proyek'}
               </span>
             </div>

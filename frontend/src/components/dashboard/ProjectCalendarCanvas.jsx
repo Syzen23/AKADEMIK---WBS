@@ -224,9 +224,9 @@ export const ProjectCalendarCanvas = ({
   };
 
   return (
-    <div className="bg-white border border-[#ECE0D0] rounded-3xl p-5 sm:p-7 shadow-xs space-y-6">
+    <div className="bg-white border border-[#ECE0D0] rounded-3xl p-3.5 sm:p-7 shadow-xs space-y-6">
       {/* Calendar Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-5 border-b border-[#F2E8DC]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 sm:pb-5 border-b border-[#F2E8DC]">
         <div>
           <h2 className="text-lg font-black text-stone-900 flex items-center gap-2">
             <CalendarIcon className="w-5 h-5 text-orange-500" />
@@ -315,7 +315,7 @@ export const ProjectCalendarCanvas = ({
                 <div
                   key={cell.dateKey}
                   onClick={() => setSelectedDateKey(cell.dateKey)}
-                  className={`min-h-[78px] sm:min-h-[92px] p-1.5 rounded-2xl border transition-all duration-150 cursor-pointer flex flex-col justify-between ${
+                  className={`min-h-[64px] sm:min-h-[92px] p-1 sm:p-1.5 rounded-xl sm:rounded-2xl border transition-all duration-150 cursor-pointer flex flex-col justify-between ${
                     cell.isCurrentMonth
                       ? 'bg-white hover:bg-orange-50/40 text-stone-800'
                       : 'bg-stone-50/50 text-stone-400 opacity-60'

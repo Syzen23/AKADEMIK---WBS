@@ -230,41 +230,41 @@ export const CreateTaskModal = ({
               <span className="text-[10px] text-stone-400 font-semibold">Pilih Cepat Hari:</span>
             </div>
 
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mb-2">
               <input
                 type="date"
                 value={dueDate}
                 onChange={(e) => setDueDate(e.target.value)}
-                className="flex-1 px-3.5 py-2.5 rounded-2xl bg-[#FAF7F2] border border-[#E5D7C7] text-stone-900 text-sm focus:border-orange-500 focus:bg-white focus:outline-none transition-all font-semibold"
+                className="w-full sm:flex-1 px-3.5 py-2.5 rounded-2xl bg-[#FAF7F2] border border-[#E5D7C7] text-stone-900 text-sm focus:border-orange-500 focus:bg-white focus:outline-none transition-all font-semibold"
               />
-              <div className="flex items-center gap-1.5 flex-wrap">
+              <div className="grid grid-cols-4 sm:flex items-center gap-1.5">
                 <button
                   type="button"
                   onClick={() => setQuickDate(0)}
-                  className="px-2.5 py-1.5 rounded-xl text-xs font-bold bg-[#F4ECE2] hover:bg-orange-500 hover:text-white text-stone-700 transition-all cursor-pointer"
+                  className="px-2 py-1.5 rounded-xl text-center text-xs font-bold bg-[#F4ECE2] hover:bg-orange-500 hover:text-white text-stone-700 transition-all cursor-pointer"
                 >
                   Hari Ini
                 </button>
                 <button
                   type="button"
                   onClick={() => setQuickDate(1)}
-                  className="px-2.5 py-1.5 rounded-xl text-xs font-bold bg-[#F4ECE2] hover:bg-orange-500 hover:text-white text-stone-700 transition-all cursor-pointer"
+                  className="px-2 py-1.5 rounded-xl text-center text-xs font-bold bg-[#F4ECE2] hover:bg-orange-500 hover:text-white text-stone-700 transition-all cursor-pointer"
                 >
                   Besok
                 </button>
                 <button
                   type="button"
                   onClick={() => setQuickDate(3)}
-                  className="px-2.5 py-1.5 rounded-xl text-xs font-bold bg-[#F4ECE2] hover:bg-orange-500 hover:text-white text-stone-700 transition-all cursor-pointer"
+                  className="px-2 py-1.5 rounded-xl text-center text-xs font-bold bg-[#F4ECE2] hover:bg-orange-500 hover:text-white text-stone-700 transition-all cursor-pointer"
                 >
                   +3 Hari
                 </button>
                 <button
                   type="button"
                   onClick={() => setQuickDate(7)}
-                  className="px-2.5 py-1.5 rounded-xl text-xs font-bold bg-[#F4ECE2] hover:bg-orange-500 hover:text-white text-stone-700 transition-all cursor-pointer"
+                  className="px-2 py-1.5 rounded-xl text-center text-xs font-bold bg-[#F4ECE2] hover:bg-orange-500 hover:text-white text-stone-700 transition-all cursor-pointer"
                 >
-                  +1 Minggu
+                  +1 Mgg
                 </button>
               </div>
             </div>

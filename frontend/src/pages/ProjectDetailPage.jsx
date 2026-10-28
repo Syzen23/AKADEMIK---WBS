@@ -424,7 +424,7 @@ export const ProjectDetailPage = () => {
         />
 
         {/* Scrollable Visual Content Canvas */}
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+        <main className="flex-1 overflow-y-auto p-3 sm:p-6 lg:p-8">
           <div className="max-w-7xl mx-auto space-y-6 pb-12">
             {/* Visual Content: Home / Overview Dashboard */}
             {activeTab === 'overview' && (
@@ -499,11 +499,11 @@ export const ProjectDetailPage = () => {
             {/* Visual Content: Berkas & Dokumen */}
             {activeTab === 'assets' && (
               <div className="space-y-4">
-                <div className="flex items-center justify-between bg-white p-5 rounded-3xl border border-[#ECE0D0] shadow-xs">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 sm:p-5 rounded-3xl border border-[#ECE0D0] shadow-xs">
                   <div>
                     <h3 className="text-base font-extrabold text-stone-900 flex items-center gap-2">
-                      <Link2 className="w-5 h-5 text-orange-500" />
-                      Tautan Berkas & Dokumen Proyek
+                      <Link2 className="w-5 h-5 text-orange-500 shrink-0" />
+                      <span>Tautan Berkas & Dokumen Proyek</span>
                     </h3>
                     <p className="text-xs text-stone-500 mt-0.5">
                       Repositori GitHub, prototipe Figma, dan dokumen Google Docs capstone.
@@ -513,10 +513,10 @@ export const ProjectDetailPage = () => {
                   {isLeader && (
                     <button
                       onClick={() => setIsAssetModalOpen(true)}
-                      className="flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-orange-500 hover:bg-orange-600 rounded-2xl transition-all shadow-md shadow-orange-500/20 cursor-pointer"
+                      className="self-start sm:self-auto flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-orange-500 hover:bg-orange-600 rounded-2xl transition-all shadow-md shadow-orange-500/20 cursor-pointer shrink-0"
                     >
                       <Plus className="w-4 h-4" />
-                      Tambah Tautan
+                      <span>Tambah Tautan</span>
                     </button>
                   )}
                 </div>
@@ -580,12 +580,12 @@ export const ProjectDetailPage = () => {
 
             {/* Visual Content: Anggota Tim */}
             {activeTab === 'members' && (
-              <div className="bg-white border border-[#ECE0D0] rounded-3xl p-6 sm:p-7 shadow-xs">
+              <div className="bg-white border border-[#ECE0D0] rounded-3xl p-4 sm:p-7 shadow-xs">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-[#F2E8DC]">
                   <div>
                     <h3 className="text-base font-extrabold text-stone-900 flex items-center gap-2">
-                      <Users className="w-5 h-5 text-orange-500" />
-                      Daftar Anggota Kelompok ({members.length})
+                      <Users className="w-5 h-5 text-orange-500 shrink-0" />
+                      <span>Daftar Anggota Kelompok ({members.length})</span>
                     </h3>
                     <p className="text-xs text-stone-500 mt-0.5">
                       Kelola mahasiswa yang bergabung dalam ruang proyek capstone ini.
@@ -594,7 +594,7 @@ export const ProjectDetailPage = () => {
                   <button
                     type="button"
                     onClick={handleCopyCode}
-                    className="self-start sm:self-auto inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 text-xs font-bold border border-orange-200 transition-colors cursor-pointer"
+                    className="self-start sm:self-auto inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-orange-50 hover:bg-orange-100 text-orange-700 text-xs font-bold border border-orange-200 transition-colors cursor-pointer shrink-0"
                   >
                     <Copy className="w-3.5 h-3.5" />
                     <span>{copiedCode ? 'Kode Disalin!' : 'Salin Kode Undangan'}</span>
@@ -609,9 +609,10 @@ export const ProjectDetailPage = () => {
                     return (
                       <div
                         key={member.id}
-                        className="py-4 flex items-center justify-between gap-4 first:pt-0 last:pb-0"
+                        className="py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 first:pt-0 last:pb-0"
                       >
-                        <div className="flex items-center gap-3">
+                        {/* Member Identity */}
+                        <div className="flex items-center gap-3 min-w-0">
                           <img
                             src={
                               member.avatar_url ||
@@ -620,31 +621,39 @@ export const ProjectDetailPage = () => {
                             alt={member.name}
                             className="w-10 h-10 rounded-full ring-2 ring-orange-200 bg-orange-50 shrink-0 object-cover"
                           />
-                          <div>
+                          <div className="min-w-0 flex-1">
                             <div className="flex items-center gap-2">
-                              <span className="text-sm font-bold text-stone-900">{member.name}</span>
+                              <span className="text-sm font-bold text-stone-900 truncate">
+                                {member.name}
+                              </span>
                               {isSelf && (
-                                <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-md bg-stone-100 text-stone-600">
+                                <span className="text-[10px] font-extrabold px-1.5 py-0.5 rounded-md bg-stone-100 text-stone-600 shrink-0">
                                   Anda
                                 </span>
                               )}
                             </div>
-                            <div className="text-xs text-stone-500">{member.email}</div>
+                            <div className="text-xs text-stone-500 truncate">{member.email}</div>
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-3">
-                          <RoleBadge role={member.role} />
-                          <span className="text-[11px] text-stone-500 hidden sm:inline font-medium">
-                            Bergabung: {new Date(member.joined_at).toLocaleDateString('id-ID')}
-                          </span>
+                        {/* Badges & Actions */}
+                        <div className="flex items-center justify-between sm:justify-end gap-2.5 sm:gap-3 pl-13 sm:pl-0">
+                          <div className="flex items-center gap-2">
+                            <RoleBadge role={member.role} />
+                            <span className="text-[11px] text-stone-400 font-medium">
+                              {new Date(member.joined_at).toLocaleDateString('id-ID', {
+                                day: 'numeric',
+                                month: 'short',
+                              })}
+                            </span>
+                          </div>
 
                           {/* Leader can kick members (cannot kick self or project leader) */}
                           {isLeader && !isProjectLeader && !isSelf && (
                             <button
                               type="button"
                               onClick={() => handleRemoveMemberConfirm(member)}
-                              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-rose-600 hover:text-white bg-rose-50 hover:bg-rose-600 border border-rose-200 hover:border-rose-600 text-xs font-bold transition-all cursor-pointer shadow-2xs"
+                              className="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-xl text-rose-600 hover:text-white bg-rose-50 hover:bg-rose-600 border border-rose-200 hover:border-rose-600 text-xs font-bold transition-all cursor-pointer shadow-2xs shrink-0"
                               title={`Keluarkan ${member.name} dari proyek`}
                             >
                               <UserMinus className="w-3.5 h-3.5" />
