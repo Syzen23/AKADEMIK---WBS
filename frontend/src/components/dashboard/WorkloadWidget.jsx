@@ -44,7 +44,7 @@ export const WorkloadWidget = ({ workload }) => {
               key={member.user_id}
               className="p-4.5 rounded-2xl bg-[#FAF7F2] border border-[#ECE0D0] hover:border-orange-200 transition-colors"
             >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+              <div className="flex items-center justify-between gap-3 mb-3">
                 <div className="flex items-center gap-3 min-w-0">
                   <img
                     src={
@@ -52,32 +52,25 @@ export const WorkloadWidget = ({ workload }) => {
                       `https://api.dicebear.com/7.x/avataaars/svg?seed=${member.name}`
                     }
                     alt={member.name}
-                    className="w-10 h-10 rounded-full ring-2 ring-orange-200 bg-orange-50 shrink-0"
+                    className="w-10 h-10 rounded-full ring-2 ring-orange-200 bg-orange-50 shrink-0 object-cover"
                   />
                   <div className="min-w-0">
                     <h4 className="text-sm font-bold text-stone-900 truncate">{member.name}</h4>
-                    <div className="text-xs text-stone-500 flex flex-wrap items-center gap-2 mt-0.5">
+                    <div className="flex flex-wrap items-center gap-1.5 mt-0.5">
                       <span className="font-semibold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200 text-[11px]">
                         {doneTasks} Selesai
                       </span>
-                      <span>•</span>
-                      <span className="font-medium text-stone-700">
-                        {activeTasks} Tugas Aktif
-                      </span>
                       {urgentTasks > 0 && (
-                        <>
-                          <span>•</span>
-                          <span className="text-amber-800 bg-amber-100/70 border border-amber-200 px-2 py-0.5 rounded-md text-[11px] font-bold flex items-center gap-1">
-                            <Calendar className="w-3 h-3 text-amber-600" />
-                            {urgentTasks} Mendekati Deadline
-                          </span>
-                        </>
+                        <span className="text-amber-800 bg-amber-100/70 border border-amber-200 px-2 py-0.5 rounded-md text-[11px] font-bold flex items-center gap-1">
+                          <Calendar className="w-3 h-3 text-amber-600" />
+                          {urgentTasks} Mendekati Deadline
+                        </span>
                       )}
                     </div>
                   </div>
                 </div>
 
-                <div className="text-left sm:text-right pl-13 sm:pl-0 flex items-center sm:block justify-between">
+                <div className="text-right shrink-0">
                   <div className="text-sm sm:text-base font-extrabold text-stone-900">
                     {activeTasks} Tugas Aktif
                   </div>
@@ -123,7 +116,7 @@ export const WorkloadWidget = ({ workload }) => {
                   </span>
                 ) : (
                   <span className="text-stone-400 flex items-center gap-1 font-medium">
-                    Belum ada tugas yang ditugaskan
+                    Menunggu pembagian tugas
                   </span>
                 )}
 
