@@ -1,8 +1,7 @@
 {
   "watch": ["src", "server.js"],
   "ext": "js,json",
-  "ignore": ["node_modules", "*.test.js"],
-  "exec": "node server.js",
+  "ignore": ["node_modules", "*.test.js", "src/scripts/*"],
   "env": {
     "NODE_ENV": "development"
   }

@@ -35,8 +35,22 @@ const findWorkLogsByProjectId = async (project_id) => {
   return result.rows;
 };
 
+const countDistinctContributors = async (task_id) => {
+  const result = await pool.query(
+    `SELECT DISTINCT user_id FROM work_logs WHERE task_id = $1`,
+    [task_id]
+  );
+  return result.rows.map((r) => r.user_id);
+};
+
 const deleteWorkLog = async (id) => {
   await pool.query('DELETE FROM work_logs WHERE id = $1', [id]);
 };
 
-module.exports = { createWorkLog, findWorkLogsByTaskId, findWorkLogsByProjectId, deleteWorkLog };
+module.exports = {
+  createWorkLog,
+  findWorkLogsByTaskId,
+  findWorkLogsByProjectId,
+  deleteWorkLog,
+  countDistinctContributors,
+};

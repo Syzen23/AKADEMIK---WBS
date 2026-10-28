@@ -1,5 +1,6 @@
 // src/modules/projects/projects.service.js
 const projectsRepo = require('./projects.repository');
+const stagesRepo = require('../stages/stages.repository');
 const { generateInviteCode } = require('../../utils/generateInviteCode');
 const { invalidateCachePattern } = require('../../utils/cache');
 
@@ -19,6 +20,21 @@ const createProject = async (userId, body) => {
     invite_code,
     leader_id: userId,
   });
+
+  // Auto-seed default Capstone WBS Stages so user can instantly create tasks!
+  try {
+    const defaultStages = [
+      { name: 'Analisis Kebutuhan & SRS', stage_order: 1 },
+      { name: 'Desain Arsitektur & UI/UX', stage_order: 2 },
+      { name: 'Implementasi & Coding Fitur', stage_order: 3 },
+      { name: 'Pengujian & Dokumentasi Akhir', stage_order: 4 },
+    ];
+    for (const st of defaultStages) {
+      await stagesRepo.createStage({ project_id: project.id, ...st });
+    }
+  } catch (err) {
+    console.error('Error auto-seeding stages:', err.message);
+  }
 
   await invalidateCachePattern(`user:${userId}:projects`);
   return project;
@@ -45,6 +61,7 @@ const deleteProject = async (projectId) => {
   if (!project) throw { statusCode: 404, message: 'Project not found.' };
   await projectsRepo.deleteProject(projectId);
   await invalidateCachePattern(`project:${projectId}:*`);
+  await invalidateCachePattern(`user:*:projects`);
 };
 
 const joinByInviteCode = async (userId, invite_code) => {

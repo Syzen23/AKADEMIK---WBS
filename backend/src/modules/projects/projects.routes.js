@@ -53,7 +53,7 @@ router.post(
   [
     body('title').trim().notEmpty().withMessage('Title is required.'),
     body('course_name').trim().notEmpty().withMessage('Course name is required.'),
-    body('deadline').optional().isISO8601().withMessage('Deadline must be a valid date.'),
+    body('deadline').optional({ nullable: true, checkFalsy: true }).isISO8601().withMessage('Deadline must be a valid date.'),
   ],
   validate,
   controller.createProject

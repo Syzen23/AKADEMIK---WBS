@@ -41,4 +41,14 @@ const deleteStage = async (req, res, next) => {
   }
 };
 
-module.exports = { createStage, getStages, updateStage, deleteStage };
+const applyTemplate = async (req, res, next) => {
+  try {
+    const stages = await service.applyTemplate(req.params.projectId);
+    return sendSuccess(res, 'Template tahapan WBS berhasil diterapkan.', stages, 201);
+  } catch (err) {
+    if (err.statusCode) return sendError(res, err.message, err.statusCode);
+    next(err);
+  }
+};
+
+module.exports = { createStage, getStages, updateStage, deleteStage, applyTemplate };

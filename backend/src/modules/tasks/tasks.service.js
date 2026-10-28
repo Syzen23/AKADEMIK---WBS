@@ -1,10 +1,15 @@
-// src/modules/tasks/tasks.service.js
 const tasksRepo = require('./tasks.repository');
+const stagesRepo = require('../stages/stages.repository');
 const { getCache, setCache, invalidateCachePattern } = require('../../utils/cache');
 
 const CACHE_TTL = 300; // 5 min
 
 const createTask = async (projectId, body) => {
+  const stage = await stagesRepo.findStageById(body.stage_id);
+  if (!stage || stage.project_id !== projectId) {
+    throw { statusCode: 400, message: 'Tahap WBS tidak valid atau telah dihapus.' };
+  }
+
   const task = await tasksRepo.createTask({ ...body, project_id: projectId });
   await invalidateCachePattern(`project:${projectId}:*`);
   return task;
@@ -24,17 +29,27 @@ const updateTask = async (taskId, body, requesterId, projectRole) => {
   const task = await tasksRepo.findTaskById(taskId);
   if (!task) throw { statusCode: 404, message: 'Task not found.' };
 
-  // Members can only update status/work on their own tasks
+  // Members can only update status on their tasks, or claim unassigned tasks
   if (projectRole === 'member') {
-    if (task.assigned_to !== requesterId) {
-      throw { statusCode: 403, message: 'You can only update your own assigned tasks.' };
+    const isClaiming = !task.assigned_to && body.assigned_to === requesterId && Object.keys(body).length === 1;
+    if (!isClaiming) {
+      if (task.assigned_to !== requesterId) {
+        throw { statusCode: 403, message: 'You can only update your own assigned tasks.' };
+      }
+      // Members can only change status — not reassign or change other fields
+      const allowedFields = ['status'];
+      const requestedFields = Object.keys(body);
+      const forbidden = requestedFields.filter((f) => !allowedFields.includes(f));
+      if (forbidden.length > 0) {
+        throw { statusCode: 403, message: `Members cannot update: ${forbidden.join(', ')}.` };
+      }
     }
-    // Members can only change status — not reassign or change other fields
-    const allowedFields = ['status'];
-    const requestedFields = Object.keys(body);
-    const forbidden = requestedFields.filter((f) => !allowedFields.includes(f));
-    if (forbidden.length > 0) {
-      throw { statusCode: 403, message: `Members cannot update: ${forbidden.join(', ')}.` };
+  }
+
+  if (body.stage_id) {
+    const stage = await stagesRepo.findStageById(body.stage_id);
+    if (!stage || stage.project_id !== task.project_id) {
+      throw { statusCode: 400, message: 'Tahap WBS tujuan tidak valid atau telah dihapus.' };
     }
   }
 
@@ -50,6 +65,13 @@ const updateTask = async (taskId, body, requesterId, projectRole) => {
   }
 
   const updated = await tasksRepo.updateTask(taskId, body);
+
+  // BUSINESS RULE: If a task was previously 'Done' and is now moved away from 'Done' (e.g. Blocked, To Do, In Progress),
+  // all downstream tasks that depended on it and were 'Done' must be demoted to 'Blocked'
+  if (task.status === 'Done' && body.status && body.status !== 'Done') {
+    await tasksRepo.demoteDependentDoneTasks(taskId);
+  }
+
   await invalidateCachePattern(`project:${task.project_id}:*`);
   return updated;
 };
@@ -81,6 +103,8 @@ const addDependency = async (taskId, prerequisiteTaskId) => {
 
 const removeDependency = async (taskId, prerequisiteTaskId) => {
   await tasksRepo.removeDependency(taskId, prerequisiteTaskId);
+  const task = await tasksRepo.findTaskById(taskId);
+  if (task) await invalidateCachePattern(`project:${task.project_id}:*`);
 };
 
 const getDashboard = async (projectId) => {

@@ -52,19 +52,12 @@ const invalidateCache = async (keys) => {
  */
 const invalidateCachePattern = async (pattern) => {
   try {
-    let cursor = 0;
-    const keysToDelete = [];
-    do {
-      const reply = await redisClient.scan(cursor, { MATCH: pattern, COUNT: 100 });
-      cursor = reply.cursor;
-      keysToDelete.push(...reply.keys);
-    } while (cursor !== 0);
-
-    if (keysToDelete.length > 0) {
-      await redisClient.del(keysToDelete);
+    const keys = await redisClient.keys(pattern);
+    if (keys && keys.length > 0) {
+      await redisClient.del(keys);
     }
-  } catch {
-    // fail silently
+  } catch (err) {
+    console.warn(`[Cache] Invalidation warning for pattern "${pattern}":`, err.message);
   }
 };
 

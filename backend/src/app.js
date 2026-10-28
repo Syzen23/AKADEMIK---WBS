@@ -51,10 +51,13 @@ app.use('/api/projects/:projectId/tasks', tasksRoutes);
 app.use('/api/projects/:projectId/tasks/:taskId/logs', worklogsRoutes);
 app.use('/api/projects/:projectId/assets', assetsRoutes);
 
-// Project-level work logs summary
+// Project-level work logs summary & Dashboard
 const worklogsController = require('./modules/worklogs/worklogs.controller');
+const tasksController = require('./modules/tasks/tasks.controller');
 const { authenticate } = require('./middleware/auth.middleware');
 const { requireMember } = require('./middleware/role.middleware');
+
+app.get('/api/projects/:projectId/dashboard', authenticate, requireMember, tasksController.getDashboard);
 app.get('/api/projects/:projectId/logs', authenticate, requireMember, worklogsController.getWorkLogsByProject);
 
 // ── 404 Handler ────────────────────────────────────────────

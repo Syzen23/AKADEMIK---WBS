@@ -86,7 +86,11 @@ const addMember = async (projectId, userId) => {
 
 const removeMember = async (projectId, userId) => {
   await pool.query(
-    `DELETE FROM project_members WHERE project_id = $1 AND user_id = $2 AND role != 'leader'`,
+    `UPDATE tasks SET assigned_to = NULL WHERE project_id = $1 AND assigned_to = $2`,
+    [projectId, userId]
+  );
+  await pool.query(
+    `DELETE FROM project_members WHERE project_id = $1 AND (user_id = $2 OR id = $2) AND role != 'leader'`,
     [projectId, userId]
   );
 };

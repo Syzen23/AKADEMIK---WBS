@@ -17,6 +17,28 @@ const findTasksByProjectId = async (project_id, filters = {}) => {
            u.avatar_url AS assigned_to_avatar,
            s.name AS stage_name,
            COALESCE(
+             (
+               SELECT json_agg(
+                 json_build_object(
+                   'id', cu.id,
+                   'name', cu.name,
+                   'avatar_url', cu.avatar_url,
+                   'hours_spent', cwl.total_hours
+                 )
+               )
+               FROM (
+                 SELECT user_id, SUM(hours_spent) as total_hours
+                 FROM work_logs
+                 WHERE task_id = t.id
+                 GROUP BY user_id
+                 ORDER BY total_hours DESC
+                 LIMIT 4
+               ) cwl
+               JOIN users cu ON cu.id = cwl.user_id
+             ),
+             '[]'
+           ) AS contributors,
+           COALESCE(
              json_agg(
                json_build_object('id', dep.id, 'title', dep.title, 'status', dep.status)
              ) FILTER (WHERE dep.id IS NOT NULL),
@@ -56,7 +78,29 @@ const findTaskById = async (id) => {
     `SELECT t.*,
             u.name AS assigned_to_name,
             u.avatar_url AS assigned_to_avatar,
-            s.name AS stage_name
+            s.name AS stage_name,
+            COALESCE(
+              (
+                SELECT json_agg(
+                  json_build_object(
+                    'id', cu.id,
+                    'name', cu.name,
+                    'avatar_url', cu.avatar_url,
+                    'hours_spent', cwl.total_hours
+                  )
+                )
+                FROM (
+                  SELECT user_id, SUM(hours_spent) as total_hours
+                  FROM work_logs
+                  WHERE task_id = t.id
+                  GROUP BY user_id
+                  ORDER BY total_hours DESC
+                  LIMIT 4
+                ) cwl
+                JOIN users cu ON cu.id = cwl.user_id
+              ),
+              '[]'
+            ) AS contributors
      FROM tasks t
      LEFT JOIN users u ON u.id = t.assigned_to
      LEFT JOIN stages s ON s.id = t.stage_id
@@ -121,6 +165,26 @@ const getUnfinishedDependencies = async (task_id) => {
   return result.rows;
 };
 
+const demoteDependentDoneTasks = async (prerequisiteTaskId) => {
+  const result = await pool.query(
+    `WITH RECURSIVE downstream AS (
+       SELECT task_id
+       FROM task_dependencies
+       WHERE prerequisite_task_id = $1
+       UNION
+       SELECT td.task_id
+       FROM task_dependencies td
+       JOIN downstream d ON td.prerequisite_task_id = d.task_id
+     )
+     UPDATE tasks
+     SET status = 'Blocked'
+     WHERE id IN (SELECT task_id FROM downstream) AND status = 'Done'
+     RETURNING id, title, project_id`,
+    [prerequisiteTaskId]
+  );
+  return result.rows;
+};
+
 // Dashboard / Cache queries
 const getWorkloadByUser = async (project_id) => {
   const result = await pool.query(
@@ -129,6 +193,13 @@ const getWorkloadByUser = async (project_id) => {
        u.name,
        u.avatar_url,
        COUNT(t.id) FILTER (WHERE t.status != 'Done')::int AS active_tasks,
+       COUNT(t.id) FILTER (WHERE t.status = 'Done')::int AS done_tasks,
+       COUNT(t.id)::int AS total_tasks,
+       COUNT(t.id) FILTER (
+         WHERE t.status != 'Done' 
+           AND t.due_date IS NOT NULL 
+           AND t.due_date <= (NOW() + INTERVAL '3 days')
+       )::int AS urgent_tasks,
        COALESCE(SUM(t.estimated_hours) FILTER (WHERE t.status != 'Done'), 0) AS total_estimated_hours,
        COALESCE(SUM(wl.hours_spent), 0) AS total_logged_hours
      FROM project_members pm
@@ -137,7 +208,7 @@ const getWorkloadByUser = async (project_id) => {
      LEFT JOIN work_logs wl ON wl.user_id = u.id AND wl.task_id = t.id
      WHERE pm.project_id = $1
      GROUP BY u.id, u.name, u.avatar_url
-     ORDER BY total_estimated_hours DESC`,
+     ORDER BY active_tasks DESC, total_tasks DESC`,
     [project_id]
   );
   return result.rows;
@@ -170,6 +241,7 @@ module.exports = {
   addDependency,
   removeDependency,
   getUnfinishedDependencies,
+  demoteDependentDoneTasks,
   getWorkloadByUser,
   getCriticalPathTasks,
 };

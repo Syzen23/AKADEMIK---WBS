@@ -1,0 +1,365 @@
+{
+  "info": {
+    "name": "Akademik WBS - API Collection",
+    "_postman_id": "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6",
+    "description": "Postman Collection lengkap untuk pengujian sistem WBS & pelacakan dependensi proyek akademik mahasiswa.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "projectId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "stageId",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "lockedTaskId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Authentication",
+      "item": [
+        {
+          "name": "Register User",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Mahasiswa Baru\",\n  \"email\": \"mhs.baru@akademik.ac.id\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] }
+          }
+        },
+        {
+          "name": "Login (Leader)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.success && res.data && res.data.token) {",
+                  "    pm.collectionVariables.set('token', res.data.token);",
+                  "    console.log('Token Leader tersimpan otomatis!');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"leader@akademik.ac.id\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Login (Member - Budi)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.success && res.data && res.data.token) {",
+                  "    pm.collectionVariables.set('token', res.data.token);",
+                  "    console.log('Token Member (Budi) tersimpan!');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"budi@akademik.ac.id\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Get Profile (Me)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/auth/me", "host": ["{{baseUrl}}"], "path": ["auth", "me"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Projects",
+      "item": [
+        {
+          "name": "Get My Projects",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.success && res.data && res.data.length > 0) {",
+                  "    pm.collectionVariables.set('projectId', res.data[0].id);",
+                  "    console.log('Project ID tersimpan:', res.data[0].id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/projects", "host": ["{{baseUrl}}"], "path": ["projects"] }
+          }
+        },
+        {
+          "name": "Get Project Detail",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/projects/{{projectId}}", "host": ["{{baseUrl}}"], "path": ["projects", "{{projectId}}"] }
+          }
+        },
+        {
+          "name": "Get Project Members",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/projects/{{projectId}}/members", "host": ["{{baseUrl}}"], "path": ["projects", "{{projectId}}", "members"] }
+          }
+        },
+        {
+          "name": "Join Project via Invite Code",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"invite_code\": \"AKAD2026\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/projects/join", "host": ["{{baseUrl}}"], "path": ["projects", "join"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. WBS Stages",
+      "item": [
+        {
+          "name": "Get Project Stages",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.success && res.data && res.data.length > 0) {",
+                  "    pm.collectionVariables.set('stageId', res.data[0].id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/projects/{{projectId}}/stages", "host": ["{{baseUrl}}"], "path": ["projects", "{{projectId}}", "stages"] }
+          }
+        },
+        {
+          "name": "Create Stage",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"5. Dokumentasi Laporan Akhir\",\n  \"stage_order\": 5\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/projects/{{projectId}}/stages", "host": ["{{baseUrl}}"], "path": ["projects", "{{projectId}}", "stages"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Tasks & Kanban Board",
+      "item": [
+        {
+          "name": "Get Tasks (Kanban Board)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.success && res.data) {",
+                  "    const locked = res.data.find(t => t.title.includes('Integrasi'));",
+                  "    if (locked) {",
+                  "        pm.collectionVariables.set('lockedTaskId', locked.id);",
+                  "        console.log('Locked Task ID tersimpan:', locked.id);",
+                  "    }",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/projects/{{projectId}}/tasks", "host": ["{{baseUrl}}"], "path": ["projects", "{{projectId}}", "tasks"] }
+          }
+        },
+        {
+          "name": "TEST ATURAN BISNIS: Coba Ubah Task Terkunci ke 'Done' (Harus 422)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Status code is 422 Unprocessable Entity karena dependensi belum selesai', function () {",
+                  "    pm.response.to.have.status(422);",
+                  "});",
+                  "pm.test('Pesan error mencantumkan prerequisite task', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.eql(false);",
+                  "    pm.expect(jsonData.message).to.include('Unfinished prerequisite tasks');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Done\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/projects/{{projectId}}/tasks/{{lockedTaskId}}", "host": ["{{baseUrl}}"], "path": ["projects", "{{projectId}}", "tasks", "{{lockedTaskId}}"] }
+          }
+        },
+        {
+          "name": "Update Task Status (Valid -> In Progress)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"In Progress\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/projects/{{projectId}}/tasks/{{lockedTaskId}}", "host": ["{{baseUrl}}"], "path": ["projects", "{{projectId}}", "tasks", "{{lockedTaskId}}"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Work Logs (Jam Kerja)",
+      "item": [
+        {
+          "name": "Add Work Log",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"hours_spent\": 3.5,\n  \"activity_notes\": \"Menyelesaikan slicing modal dependency locking dan style tailwind\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/projects/{{projectId}}/tasks/{{lockedTaskId}}/logs", "host": ["{{baseUrl}}"], "path": ["projects", "{{projectId}}", "tasks", "{{lockedTaskId}}", "logs"] }
+          }
+        },
+        {
+          "name": "Get Project All Work Logs",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/projects/{{projectId}}/logs", "host": ["{{baseUrl}}"], "path": ["projects", "{{projectId}}", "logs"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "6. Dashboard (Redis Cached)",
+      "item": [
+        {
+          "name": "Get Dashboard Data (Workload & Critical Path)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/projects/{{projectId}}/dashboard", "host": ["{{baseUrl}}"], "path": ["projects", "{{projectId}}", "dashboard"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Project Assets",
+      "item": [
+        {
+          "name": "Get Project Assets",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": { "raw": "{{baseUrl}}/projects/{{projectId}}/assets", "host": ["{{baseUrl}}"], "path": ["projects", "{{projectId}}", "assets"] }
+          }
+        },
+        {
+          "name": "Add Asset Link",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Presentasi Final Capstone\",\n  \"asset_type\": \"gdrive\",\n  \"asset_url\": \"https://drive.google.com/presentation/d/akademik-slide-final\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/projects/{{projectId}}/assets", "host": ["{{baseUrl}}"], "path": ["projects", "{{projectId}}", "assets"] }
+          }
+        }
+      ]
+    }
+  ]
+}

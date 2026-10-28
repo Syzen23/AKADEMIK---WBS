@@ -82,9 +82,10 @@ router.post(
   [
     body('stage_id').isUUID().withMessage('Valid stage_id is required.'),
     body('title').trim().notEmpty().withMessage('Title is required.'),
-    body('estimated_hours').optional().isDecimal().withMessage('estimated_hours must be a decimal.'),
-    body('priority').optional().isIn(['Low', 'Medium', 'High', 'Critical']).withMessage('Invalid priority.'),
-    body('due_date').optional().isISO8601().withMessage('due_date must be a valid date.'),
+    body('assigned_to').optional({ nullable: true, checkFalsy: true }).isUUID().withMessage('Invalid assigned_to UUID.'),
+    body('estimated_hours').optional({ nullable: true, checkFalsy: true }).isDecimal().withMessage('estimated_hours must be a decimal.'),
+    body('priority').optional({ nullable: true, checkFalsy: true }).isIn(['Low', 'Medium', 'High', 'Critical']).withMessage('Invalid priority.'),
+    body('due_date').optional({ nullable: true, checkFalsy: true }).isISO8601().withMessage('due_date must be a valid date.'),
   ],
   validate,
   controller.createTask
@@ -151,10 +152,14 @@ router.patch(
   authenticate,
   requireMember,
   [
-    body('status').optional().isIn(['To Do', 'In Progress', 'Blocked', 'Done']).withMessage('Invalid status.'),
-    body('priority').optional().isIn(['Low', 'Medium', 'High', 'Critical']).withMessage('Invalid priority.'),
-    body('estimated_hours').optional().isDecimal(),
-    body('due_date').optional().isISO8601(),
+    body('title').optional().trim().notEmpty().withMessage('Judul tugas tidak boleh kosong.'),
+    body('description').optional({ nullable: true }),
+    body('stage_id').optional({ nullable: true, checkFalsy: true }).isUUID().withMessage('Invalid stage_id UUID.'),
+    body('status').optional({ nullable: true, checkFalsy: true }).isIn(['To Do', 'In Progress', 'Blocked', 'Done']).withMessage('Invalid status.'),
+    body('priority').optional({ nullable: true, checkFalsy: true }).isIn(['Low', 'Medium', 'High', 'Critical']).withMessage('Invalid priority.'),
+    body('assigned_to').optional({ nullable: true, checkFalsy: true }).isUUID().withMessage('Invalid assigned_to UUID.'),
+    body('estimated_hours').optional({ nullable: true, checkFalsy: true }).isDecimal(),
+    body('due_date').optional({ nullable: true }),
   ],
   validate,
   controller.updateTask

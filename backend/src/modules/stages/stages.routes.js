@@ -69,6 +69,7 @@ router.post(
   validate,
   controller.createStage
 );
+router.post('/template', authenticate, requireLeader, controller.applyTemplate);
 
 /**
  * @openapi
