@@ -1,5 +1,5 @@
 // src/utils/generateInviteCode.js
-const { v4: uuidv4 } = require('uuid');
+const crypto = require('crypto');
 
 /**
  * Generate a random alphanumeric invite code of specified length
@@ -8,11 +8,10 @@ const { v4: uuidv4 } = require('uuid');
  */
 const generateInviteCode = (length = 8) => {
   const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  const uuid = uuidv4().replace(/-/g, '');
+  const bytes = crypto.randomBytes(length);
   let code = '';
   for (let i = 0; i < length; i++) {
-    const index = parseInt(uuid[i * 2] + uuid[i * 2 + 1], 16) % chars.length;
-    code += chars[index];
+    code += chars[bytes[i] % chars.length];
   }
   return code;
 };
