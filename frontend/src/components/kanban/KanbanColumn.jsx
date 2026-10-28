@@ -109,7 +109,7 @@ export const KanbanColumn = ({
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
-      className={`flex flex-col rounded-3xl p-4 min-w-[290px] flex-1 transition-all duration-200 border ${
+      className={`flex flex-col rounded-3xl p-3.5 sm:p-4 w-full min-w-0 sm:min-w-[270px] flex-1 transition-all duration-200 border ${
         isDragOver
           ? 'bg-orange-50/70 border-orange-400 ring-2 ring-orange-400/40 scale-[1.01]'
           : 'bg-[#F6F1E8]/70 border-[#ECE0D0]'

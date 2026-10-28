@@ -75,9 +75,9 @@ export const KanbanBoard = ({
       )}
 
       {/* Filter Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-4 rounded-3xl border border-[#ECE0D0] shadow-xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3.5 sm:p-4 rounded-3xl border border-[#ECE0D0] shadow-xs">
         {/* Search Bar */}
-        <div className="relative flex-1 min-w-[220px] max-w-sm">
+        <div className="relative w-full sm:flex-1 sm:max-w-sm min-w-0">
           <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-3" />
           <input
             type="text"
@@ -96,7 +96,7 @@ export const KanbanBoard = ({
           )}
         </div>
 
-        <div className="flex flex-wrap items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 w-full sm:w-auto">
           {/* Stage filter */}
           {stages.length > 0 && (
             <div className="flex items-center gap-2 bg-[#FAF7F2] px-3 py-1.5 rounded-2xl border border-[#E8DACB] text-xs">

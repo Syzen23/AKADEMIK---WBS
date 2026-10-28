@@ -75,34 +75,34 @@ export const ProjectsPage = () => {
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Warm Banner (Styled like reference hero) */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FFF5EC] via-white to-[#FDF7F0] border border-[#EEDDCC] p-7 sm:p-9 mb-8 shadow-xs">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FFF5EC] via-white to-[#FDF7F0] border border-[#EEDDCC] p-5 sm:p-9 mb-8 shadow-xs">
           <div className="relative z-10 max-w-2xl">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-orange-100/80 text-orange-700 border border-orange-200 mb-3.5">
-              <Sparkles className="w-3.5 h-3.5 text-orange-600" />
-              Sistem Manajemen Proyek Akademik
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-orange-100/80 text-orange-700 border border-orange-200 mb-3 sm:mb-3.5">
+              <Sparkles className="w-3.5 h-3.5 text-orange-600 shrink-0" />
+              <span>Sistem Manajemen Proyek Akademik</span>
             </span>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight leading-tight">
+            <h1 className="text-xl sm:text-3xl font-extrabold text-stone-900 tracking-tight leading-tight">
               Selamat datang, <span className="text-orange-500">{user?.name}</span>!
             </h1>
-            <p className="mt-2 text-sm text-stone-600 leading-relaxed font-medium">
+            <p className="mt-2 text-xs sm:text-sm text-stone-600 leading-relaxed font-medium">
               Pantau tahapan WBS, hilangkan hambatan pengerjaan (*task paralysis*), dan pastikan pembagian kontribusi jam kerja kelompok transparan.
             </p>
 
-            <div className="flex flex-wrap items-center gap-3 mt-6">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 mt-5 sm:mt-6">
               <button
                 onClick={() => setIsCreateOpen(true)}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold text-white bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/25 transition-all hover:scale-[1.02] cursor-pointer"
+                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold text-white bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/25 transition-all hover:scale-[1.02] cursor-pointer"
               >
-                <Plus className="w-4 h-4" />
-                Buat Ruang Proyek Baru
+                <Plus className="w-4 h-4 shrink-0" />
+                <span>Buat Ruang Proyek Baru</span>
               </button>
 
               <button
                 onClick={() => setIsJoinOpen(true)}
-                className="flex items-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold text-orange-700 bg-white hover:bg-orange-50 border-2 border-orange-300 transition-all cursor-pointer shadow-xs"
+                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold text-orange-700 bg-white hover:bg-orange-50 border-2 border-orange-300 transition-all cursor-pointer shadow-xs"
               >
-                <KeyRound className="w-4 h-4 text-orange-500" />
-                Gabung via Kode Invite
+                <KeyRound className="w-4 h-4 text-orange-500 shrink-0" />
+                <span>Gabung via Kode Invite</span>
               </button>
             </div>
           </div>
