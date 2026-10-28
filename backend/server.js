@@ -28,4 +28,10 @@ const startServer = async () => {
   }
 };
 
-startServer();
+// Only start HTTP listener if executed directly (e.g. node server.js locally)
+if (require.main === module) {
+  startServer();
+}
+
+// Export Express app for Vercel Express Preset / Serverless
+module.exports = app;
