@@ -1,18 +1,22 @@
 // src/config/db.js
 const { Pool } = require('pg');
 
+const isProduction = process.env.NODE_ENV === 'production';
+const isSupabase = process.env.DATABASE_URL && process.env.DATABASE_URL.includes('supabase.com');
+
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+  ssl: isProduction || isSupabase ? { rejectUnauthorized: false } : false,
 });
 
 pool.on('connect', () => {
-  console.log('✅ PostgreSQL connected');
+  console.log('✅ PostgreSQL client connected');
 });
 
+// Non-fatal error handler: Supabase pooler (PgBouncer) routinely closes idle connections.
+// NEVER call process.exit(1) here in a serverless or pooled environment!
 pool.on('error', (err) => {
-  console.error('❌ PostgreSQL connection error:', err.message);
-  process.exit(1);
+  console.warn('⚠️ PostgreSQL pool notice (client discarded):', err.message);
 });
 
 module.exports = pool;

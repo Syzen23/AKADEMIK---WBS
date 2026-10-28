@@ -19,10 +19,55 @@ const assetsRoutes = require('./modules/assets/assets.routes');
 const app = express();
 
 // ── Security & Logging Middleware ──────────────────────────
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false, // Allows Swagger UI and external assets
+  })
+);
+
+const normalizeOrigin = (urlStr) => {
+  if (!urlStr) return '';
+  const trimmed = urlStr.trim();
+  try {
+    const parsed = new URL(trimmed.startsWith('http') ? trimmed : `https://${trimmed}`);
+    return parsed.origin;
+  } catch {
+    return trimmed.replace(/\/.*$/, '');
+  }
+};
+
+const rawClientUrl = process.env.CLIENT_URL || '';
+const configuredOrigins = rawClientUrl
+  ? rawClientUrl.split(',').map(normalizeOrigin).filter(Boolean)
+  : [];
+
+const defaultOrigins = [
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'http://127.0.0.1:5173',
+];
+
+const allowedOrigins = Array.from(new Set([...configuredOrigins, ...defaultOrigins]));
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || 'http://localhost:5173',
+    origin: (origin, callback) => {
+      // Allow requests with no origin (e.g. mobile apps, curl, Postman)
+      if (!origin) return callback(null, true);
+
+      // Check configured origins
+      if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+        return callback(null, true);
+      }
+
+      // Automatically allow preview/production Vercel deployments of this app
+      if (origin.endsWith('.vercel.app') || process.env.NODE_ENV !== 'production') {
+        return callback(null, true);
+      }
+
+      console.warn(`[CORS Blocked] Origin: ${origin}. Configured: ${JSON.stringify(allowedOrigins)}`);
+      callback(new Error(`Origin ${origin} not allowed by CORS`));
+    },
     credentials: true,
   })
 );
@@ -36,7 +81,15 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
   customCss: '.swagger-ui .topbar { background-color: #1e293b; }',
 }));
 
-// ── Health Check ───────────────────────────────────────────
+// ── Health & Root Check ────────────────────────────────────
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Akademik WBS API is online.',
+    timestamp: new Date().toISOString(),
+  });
+});
+
 app.get('/health', (req, res) => {
   res.json({ success: true, message: 'Akademik WBS API is running.', timestamp: new Date().toISOString() });
 });

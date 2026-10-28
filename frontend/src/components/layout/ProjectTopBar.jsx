@@ -1,6 +1,17 @@
 import React from 'react';
-import { Menu, Plus, Copy, Check, Calendar, BookOpen, Layers, Kanban, BarChart3, Link2, Users, LayoutDashboard } from 'lucide-react';
-import { RoleBadge } from '../ui/Badge';
+import { Link } from 'react-router-dom';
+import {
+  Menu,
+  Copy,
+  Check,
+  Calendar,
+  Layers,
+  Kanban,
+  BarChart3,
+  Link2,
+  Users,
+  LayoutDashboard,
+} from 'lucide-react';
 
 export const ProjectTopBar = ({
   project,
@@ -70,16 +81,22 @@ export const ProjectTopBar = ({
           </button>
 
           <div className="min-w-0">
-            {/* Breadcrumb row */}
+            {/* Breadcrumb row: Proyek / Course / Project Title (No duplication with page heading) */}
             <div className="flex items-center gap-1.5 text-[11px] text-stone-500 font-semibold truncate mb-0.5">
-              <span>Proyek</span>
+              <Link to="/projects" className="hover:text-orange-600 transition-colors">
+                Proyek
+              </Link>
               <span>/</span>
-              <span className="text-stone-700 truncate">{project?.course_name || 'Matakuliah'}</span>
+              <span className="text-stone-700 font-bold truncate">
+                {project?.course_name || 'Matakuliah'}
+              </span>
               <span>/</span>
-              <span className="text-orange-600 font-bold">{currentTab.title}</span>
+              <span className="text-stone-500 font-medium truncate max-w-[200px]" title={project?.title}>
+                {project?.title || 'Ruang Proyek'}
+              </span>
             </div>
 
-            {/* Active view title */}
+            {/* Active view title: Only rendered ONCE here */}
             <div className="flex items-center gap-2">
               <TabIcon className="w-5 h-5 text-orange-500 shrink-0" />
               <h1 className="text-base sm:text-lg font-extrabold text-stone-900 tracking-tight truncate">
@@ -106,7 +123,9 @@ export const ProjectTopBar = ({
               ) : (
                 <>
                   <Copy className="w-3.5 h-3.5 text-stone-500" />
-                  <span className="text-[11px]">Kode: <strong className="font-mono text-orange-700">{project.invite_code}</strong></span>
+                  <span className="text-[11px]">
+                    Kode: <strong className="font-mono text-orange-700">{project.invite_code}</strong>
+                  </span>
                 </>
               )}
             </button>
@@ -116,7 +135,9 @@ export const ProjectTopBar = ({
           {deadlineFormatted && (
             <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-[#FAF7F2] border border-[#E8DACB] text-[11px] text-stone-600 font-semibold">
               <Calendar className="w-3.5 h-3.5 text-orange-500" />
-              <span>Tenggat: <strong className="text-stone-800">{deadlineFormatted}</strong></span>
+              <span>
+                Tenggat: <strong className="text-stone-800">{deadlineFormatted}</strong>
+              </span>
             </div>
           )}
         </div>

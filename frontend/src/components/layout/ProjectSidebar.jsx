@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { RoleBadge } from '../ui/Badge';
+import { Link } from 'react-router-dom';
 import {
   LayoutDashboard,
   Kanban,
@@ -13,7 +12,6 @@ import {
   LogOut,
   ChevronLeft,
   ChevronRight,
-  BookOpen,
   Trash2,
 } from 'lucide-react';
 
@@ -37,8 +35,6 @@ export const ProjectSidebar = ({
   onLogout,
   onDeleteProject,
 }) => {
-  const navigate = useNavigate();
-
   const primaryMenuItems = [
     {
       id: 'overview',
@@ -103,50 +99,65 @@ export const ProjectSidebar = ({
         } ${isCollapsed ? 'w-20' : 'w-72 sm:w-80'}`}
       >
         {/* Brand & App Title Header */}
-        <div className="h-18 px-5 flex items-center justify-between border-b border-[#F2E5D5] bg-[#FAF7F2]/40 shrink-0">
-          <Link
-            to="/projects"
-            className="flex items-center gap-3 overflow-hidden cursor-pointer group"
-          >
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-orange-500 to-amber-500 flex items-center justify-center shadow-md shadow-orange-500/20 group-hover:scale-105 transition-transform shrink-0">
-              <Layers className="w-5 h-5 text-white" />
-            </div>
-            {!isCollapsed && (
-              <div className="truncate">
-                <div className="flex items-center gap-1.5">
-                  <span className="font-extrabold text-base text-stone-900 tracking-tight">
-                    Akademik<span className="text-orange-500">WBS</span>
-                  </span>
-                  <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-md bg-orange-100 text-orange-700">
-                    PRO
-                  </span>
+        <div
+          className={`h-18 flex items-center border-b border-[#F2E5D5] bg-[#FAF7F2]/40 shrink-0 ${
+            isCollapsed ? 'justify-center px-2' : 'justify-between px-5'
+          }`}
+        >
+          {isCollapsed ? (
+            /* Collapsed Header: Centered Interactive Logo to Expand */
+            <button
+              type="button"
+              onClick={() => setIsCollapsed(false)}
+              className="w-11 h-11 rounded-2xl bg-gradient-to-tr from-orange-500 to-amber-500 flex items-center justify-center shadow-md shadow-orange-500/20 hover:scale-105 transition-all cursor-pointer group"
+              title="Klik untuk memperluas sidebar"
+            >
+              <Layers className="w-5 h-5 text-white group-hover:hidden transition-all" />
+              <ChevronRight className="w-5 h-5 text-white hidden group-hover:block transition-all" />
+            </button>
+          ) : (
+            /* Expanded Header: Brand + Collapse Button */
+            <>
+              <Link
+                to="/projects"
+                className="flex items-center gap-3 overflow-hidden cursor-pointer group"
+              >
+                <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-orange-500 to-amber-500 flex items-center justify-center shadow-md shadow-orange-500/20 group-hover:scale-105 transition-transform shrink-0">
+                  <Layers className="w-5 h-5 text-white" />
                 </div>
-                <p className="text-[10px] text-stone-500 font-medium truncate">
-                  Admin Workspace
-                </p>
-              </div>
-            )}
-          </Link>
+                <div className="truncate">
+                  <div className="flex items-center gap-1.5">
+                    <span className="font-extrabold text-base text-stone-900 tracking-tight">
+                      Akademik<span className="text-orange-500">WBS</span>
+                    </span>
+                    <span className="text-[9px] font-extrabold px-1.5 py-0.2 rounded-md bg-orange-100 text-orange-700">
+                      PRO
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-stone-500 font-medium truncate">
+                    Workspace Proyek
+                  </p>
+                </div>
+              </Link>
 
-          {/* Desktop Collapse Toggle */}
-          <button
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className="hidden lg:flex items-center justify-center w-7 h-7 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-[#FAF7F2] border border-transparent hover:border-[#E8DACB] transition-colors cursor-pointer"
-            title={isCollapsed ? 'Perluas Sidebar' : 'Ciutkan Sidebar'}
-          >
-            {isCollapsed ? (
-              <ChevronRight className="w-4 h-4" />
-            ) : (
-              <ChevronLeft className="w-4 h-4" />
-            )}
-          </button>
+              {/* Desktop Collapse Toggle */}
+              <button
+                type="button"
+                onClick={() => setIsCollapsed(true)}
+                className="hidden lg:flex items-center justify-center w-7 h-7 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-[#FAF7F2] border border-transparent hover:border-[#E8DACB] transition-colors cursor-pointer"
+                title="Ciutkan Sidebar"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+            </>
+          )}
         </div>
 
-        {/* Scrollable Center Content: Navigation First, then Quick Actions at Bottom */}
+        {/* Scrollable Center Content: Navigation & Actions */}
         <div className="flex-1 overflow-y-auto px-3 py-3.5 space-y-4 flex flex-col justify-between">
           <div className="space-y-3">
-            {/* Compact Workspace Identifier */}
-            {!isCollapsed ? (
+            {/* Workspace Identifier (Only in Expanded Mode) */}
+            {!isCollapsed && (
               <div className="px-3.5 py-2.5 rounded-2xl bg-[#FAF7F2] border border-[#ECE0D0] flex items-center justify-between gap-2 shadow-2xs">
                 <div className="min-w-0">
                   <div className="text-[10px] font-bold text-stone-400 uppercase tracking-wider truncate">
@@ -157,18 +168,9 @@ export const ProjectSidebar = ({
                   </div>
                 </div>
               </div>
-            ) : (
-              <div className="flex justify-center py-1">
-                <div
-                  className="w-8 h-8 rounded-xl bg-orange-50 border border-orange-200 text-orange-600 flex items-center justify-center text-xs font-bold"
-                  title={`${project?.title} (${project?.course_name})`}
-                >
-                  <BookOpen className="w-4 h-4" />
-                </div>
-              </div>
             )}
 
-            {/* 1. MENU UTAMA (4 Cohesive Core Menus) */}
+            {/* 1. MENU UTAMA */}
             <div className="space-y-1">
               {!isCollapsed && (
                 <div className="px-2 pb-1 text-[10px] font-bold text-stone-400 uppercase tracking-wider">
@@ -227,7 +229,7 @@ export const ProjectSidebar = ({
               </nav>
             </div>
 
-            {/* 2. TIM & ANALISIS (Secondary Operations) */}
+            {/* 2. TIM & ANALISIS */}
             <div className="space-y-1 pt-2 border-t border-[#F2E8DC]">
               {!isCollapsed && (
                 <div className="px-2 pb-1 text-[10px] font-bold text-stone-400 uppercase tracking-wider">
@@ -302,24 +304,30 @@ export const ProjectSidebar = ({
             </div>
           </div>
 
-          {/* 2. AKSI CEPAT (Placed AFTER Menu Navigasi, at the Bottom) */}
+          {/* 3. AKSI CEPAT (Only leader) */}
           {isLeader && (
-            <div className="pt-3 border-t border-[#F2E5D5] space-y-2">
+            <div
+              className={`pt-3 border-t border-[#F2E5D5] space-y-2 ${
+                isCollapsed ? 'flex flex-col items-center' : ''
+              }`}
+            >
               {!isCollapsed && (
                 <div className="px-2 text-[10px] font-bold text-stone-400 uppercase tracking-wider">
                   Aksi Cepat
                 </div>
               )}
 
+              {/* Tambah Tugas Baru */}
               <button
+                type="button"
                 onClick={() => {
                   onOpenCreateTask();
                   if (setIsMobileOpen) setIsMobileOpen(false);
                 }}
-                className={`w-full flex items-center justify-center gap-2 rounded-2xl font-bold text-xs transition-all shadow-md shadow-orange-500/20 cursor-pointer ${
+                className={`flex items-center justify-center gap-2 rounded-2xl font-bold text-xs transition-all shadow-md shadow-orange-500/20 cursor-pointer ${
                   isCollapsed
-                    ? 'p-2.5 bg-orange-500 hover:bg-orange-600 text-white'
-                    : 'px-4 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white'
+                    ? 'w-10 h-10 bg-orange-500 hover:bg-orange-600 text-white'
+                    : 'w-full px-4 py-2.5 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white'
                 }`}
                 title="Tambah Tugas Baru"
               >
@@ -330,6 +338,7 @@ export const ProjectSidebar = ({
               {!isCollapsed && (
                 <div className="grid grid-cols-2 gap-1.5">
                   <button
+                    type="button"
                     onClick={() => {
                       onOpenCreateStage();
                       if (setIsMobileOpen) setIsMobileOpen(false);
@@ -341,6 +350,7 @@ export const ProjectSidebar = ({
                   </button>
 
                   <button
+                    type="button"
                     onClick={() => {
                       onOpenAssetModal();
                       if (setIsMobileOpen) setIsMobileOpen(false);
@@ -353,7 +363,7 @@ export const ProjectSidebar = ({
                 </div>
               )}
 
-              {/* Hapus Proyek option for leader */}
+              {/* Hapus Proyek Option for Leader */}
               {onDeleteProject && (
                 <button
                   type="button"
@@ -361,8 +371,8 @@ export const ProjectSidebar = ({
                     if (setIsMobileOpen) setIsMobileOpen(false);
                     onDeleteProject();
                   }}
-                  className={`w-full flex items-center justify-center gap-1.5 rounded-xl font-semibold text-[11px] text-rose-600 hover:text-white bg-rose-50/70 hover:bg-rose-600 border border-rose-200/80 hover:border-rose-600 transition-all cursor-pointer ${
-                    isCollapsed ? 'p-2' : 'px-2.5 py-1.5'
+                  className={`flex items-center justify-center gap-1.5 rounded-xl font-semibold text-[11px] text-rose-600 hover:text-white bg-rose-50/70 hover:bg-rose-600 border border-rose-200/80 hover:border-rose-600 transition-all cursor-pointer ${
+                    isCollapsed ? 'w-10 h-8 p-1.5' : 'w-full px-2.5 py-1.5'
                   }`}
                   title="Hapus ruang proyek ini secara permanen"
                 >
@@ -374,34 +384,34 @@ export const ProjectSidebar = ({
           )}
         </div>
 
-        {/* Sidebar Bottom Footer (Profile & Back) */}
-        <div className="p-3.5 border-t border-[#F2E5D5] bg-[#FAF7F2]/50 shrink-0 space-y-2">
+        {/* Sidebar Bottom Footer (Profile & Back & Collapse Toggle) */}
+        <div className="p-3 border-t border-[#F2E5D5] bg-[#FAF7F2]/50 shrink-0 space-y-1.5">
           {/* Back to Projects List */}
           <Link
             to="/projects"
             className={`flex items-center gap-2 rounded-2xl text-stone-600 hover:text-orange-600 hover:bg-white border border-transparent hover:border-[#E8DACB] transition-all cursor-pointer font-bold text-xs ${
-              isCollapsed ? 'p-2.5 justify-center' : 'px-3 py-2'
+              isCollapsed ? 'p-2 justify-center' : 'px-3 py-2'
             }`}
-            title="Kembali ke Daftar Proyek"
+            title="Kembali ke Semua Proyek"
           >
             <ArrowLeft className="w-4 h-4 shrink-0 text-stone-500" />
             {!isCollapsed && <span>Semua Proyek</span>}
           </Link>
 
-          {/* User Capsule */}
+          {/* User Profile Capsule */}
           <div
-            className={`flex items-center justify-between p-2 rounded-2xl bg-white border border-[#ECE0D0] ${
-              isCollapsed ? 'justify-center p-1.5' : ''
+            className={`flex items-center justify-between p-1.5 rounded-2xl bg-white border border-[#ECE0D0] ${
+              isCollapsed ? 'justify-center' : ''
             }`}
           >
-            <div className="flex items-center gap-2.5 truncate">
+            <div className="flex items-center gap-2 truncate">
               <img
                 src={
                   user?.avatar_url ||
                   `https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.name || 'User'}`
                 }
                 alt={user?.name || 'User'}
-                className="w-8 h-8 rounded-full ring-2 ring-orange-200 bg-orange-50 shrink-0"
+                className="w-7 h-7 rounded-full ring-2 ring-orange-200 bg-orange-50 shrink-0"
               />
               {!isCollapsed && (
                 <div className="truncate text-left">
@@ -417,14 +427,32 @@ export const ProjectSidebar = ({
 
             {!isCollapsed && (
               <button
+                type="button"
                 onClick={onLogout}
-                className="p-1.5 text-stone-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors cursor-pointer"
+                className="p-1 text-stone-400 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-colors cursor-pointer"
                 title="Keluar Akun"
               >
                 <LogOut className="w-4 h-4" />
               </button>
             )}
           </div>
+
+          {/* Dedicated Expand / Collapse Toggle Button for Desktop */}
+          <button
+            type="button"
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className={`hidden lg:flex items-center justify-center gap-1.5 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-stone-200/50 transition-colors cursor-pointer text-xs font-semibold w-full py-1`}
+            title={isCollapsed ? 'Perluas Sidebar' : 'Ciutkan Sidebar'}
+          >
+            {isCollapsed ? (
+              <ChevronRight className="w-4 h-4 text-stone-500 shrink-0" />
+            ) : (
+              <div className="flex items-center gap-1.5 text-[11px] text-stone-500">
+                <ChevronLeft className="w-3.5 h-3.5" />
+                <span>Ciutkan Sidebar</span>
+              </div>
+            )}
+          </button>
         </div>
       </aside>
     </>

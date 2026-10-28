@@ -51,4 +51,12 @@ const options = {
   apis: ['./src/modules/**/*.routes.js'],
 };
 
-module.exports = swaggerJsdoc(options);
+let swaggerSpec;
+try {
+  swaggerSpec = swaggerJsdoc(options);
+} catch (err) {
+  console.warn('⚠️ Swagger JSDoc generation skipped:', err.message);
+  swaggerSpec = options.definition;
+}
+
+module.exports = swaggerSpec;

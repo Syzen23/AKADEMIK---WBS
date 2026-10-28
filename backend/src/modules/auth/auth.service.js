@@ -25,9 +25,10 @@ const login = async ({ email, password }) => {
     throw { statusCode: 401, message: 'Invalid email or password.' };
   }
 
+  const jwtSecret = process.env.JWT_SECRET || 'akademik_wbs_default_jwt_secret_key_2026';
   const token = jwt.sign(
     { id: user.id, email: user.email, name: user.name },
-    process.env.JWT_SECRET,
+    jwtSecret,
     { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
   );
 

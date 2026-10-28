@@ -1,7 +1,13 @@
 // src/utils/cache.js
-const { redisClient } = require('../config/redis');
+const { redisClient, connectRedis } = require('../config/redis');
 
 const DEFAULT_TTL = 300; // 5 minutes in seconds
+
+const ensureConnected = async () => {
+  if (!redisClient.isOpen) {
+    await connectRedis();
+  }
+};
 
 /**
  * Get value from Redis cache
@@ -10,6 +16,8 @@ const DEFAULT_TTL = 300; // 5 minutes in seconds
  */
 const getCache = async (key) => {
   try {
+    await ensureConnected();
+    if (!redisClient.isOpen) return null;
     const data = await redisClient.get(key);
     return data ? JSON.parse(data) : null;
   } catch {
@@ -25,6 +33,8 @@ const getCache = async (key) => {
  */
 const setCache = async (key, data, ttl = DEFAULT_TTL) => {
   try {
+    await ensureConnected();
+    if (!redisClient.isOpen) return;
     await redisClient.setEx(key, ttl, JSON.stringify(data));
   } catch {
     // fail silently - writing cache is best-effort
@@ -37,6 +47,8 @@ const setCache = async (key, data, ttl = DEFAULT_TTL) => {
  */
 const invalidateCache = async (keys) => {
   try {
+    await ensureConnected();
+    if (!redisClient.isOpen) return;
     const keyList = Array.isArray(keys) ? keys : [keys];
     if (keyList.length > 0) {
       await redisClient.del(keyList);
@@ -52,6 +64,8 @@ const invalidateCache = async (keys) => {
  */
 const invalidateCachePattern = async (pattern) => {
   try {
+    await ensureConnected();
+    if (!redisClient.isOpen) return;
     const keys = await redisClient.keys(pattern);
     if (keys && keys.length > 0) {
       await redisClient.del(keys);
