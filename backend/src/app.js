@@ -49,28 +49,31 @@ const defaultOrigins = [
 
 const allowedOrigins = Array.from(new Set([...configuredOrigins, ...defaultOrigins]));
 
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      // Allow requests with no origin (e.g. mobile apps, curl, Postman)
-      if (!origin) return callback(null, true);
+const corsMiddleware = cors({
+  origin: (origin, callback) => {
+    // Allow requests with no origin (e.g. mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
 
-      // Check configured origins
-      if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
-        return callback(null, true);
-      }
+    // Check configured origins
+    if (allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
+      return callback(null, true);
+    }
 
-      // Automatically allow preview/production Vercel deployments of this app
-      if (origin.endsWith('.vercel.app') || process.env.NODE_ENV !== 'production') {
-        return callback(null, true);
-      }
+    // Automatically allow preview/production Vercel deployments of this app
+    if (origin.endsWith('.vercel.app') || process.env.NODE_ENV !== 'production') {
+      return callback(null, true);
+    }
 
-      console.warn(`[CORS Blocked] Origin: ${origin}. Configured: ${JSON.stringify(allowedOrigins)}`);
-      callback(new Error(`Origin ${origin} not allowed by CORS`));
-    },
-    credentials: true,
-  })
-);
+    console.warn(`[CORS Blocked] Origin: ${origin}. Configured: ${JSON.stringify(allowedOrigins)}`);
+    callback(new Error(`Origin ${origin} not allowed by CORS`));
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+});
+
+app.use(corsMiddleware);
+app.options('*', corsMiddleware);
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
