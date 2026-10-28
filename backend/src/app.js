@@ -73,7 +73,15 @@ const corsMiddleware = cors({
 });
 
 app.use(corsMiddleware);
-app.options('*', corsMiddleware);
+
+// Fast preflight responder: immediately ends OPTIONS requests with 204
+app.use((req, res, next) => {
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+  next();
+});
+
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -85,7 +93,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec, {
 }));
 
 // ── Health & Root Check ────────────────────────────────────
-app.get('/', (req, res) => {
+app.get(['/', '/api'], (req, res) => {
   res.json({
     success: true,
     message: 'Akademik WBS API is online.',
@@ -93,28 +101,30 @@ app.get('/', (req, res) => {
   });
 });
 
-app.get('/health', (req, res) => {
+app.get(['/health', '/api/health'], (req, res) => {
   res.json({ success: true, message: 'Akademik WBS API is running.', timestamp: new Date().toISOString() });
 });
 
-// ── API Routes ─────────────────────────────────────────────
-app.use('/api/auth', authRoutes);
-app.use('/api/projects', projectsRoutes);
-
-// Nested routes under /api/projects/:projectId
-app.use('/api/projects/:projectId/stages', stagesRoutes);
-app.use('/api/projects/:projectId/tasks', tasksRoutes);
-app.use('/api/projects/:projectId/tasks/:taskId/logs', worklogsRoutes);
-app.use('/api/projects/:projectId/assets', assetsRoutes);
-
-// Project-level work logs summary & Dashboard
+// Project-level work logs summary & Dashboard controllers
 const worklogsController = require('./modules/worklogs/worklogs.controller');
 const tasksController = require('./modules/tasks/tasks.controller');
 const { authenticate } = require('./middleware/auth.middleware');
 const { requireMember } = require('./middleware/role.middleware');
 
-app.get('/api/projects/:projectId/dashboard', authenticate, requireMember, tasksController.getDashboard);
-app.get('/api/projects/:projectId/logs', authenticate, requireMember, worklogsController.getWorkLogsByProject);
+// ── API Routes (Dual mounted: with /api and without /api for Vercel Serverless compatibility)
+const registerRoutes = (prefix = '') => {
+  app.use(`${prefix}/auth`, authRoutes);
+  app.use(`${prefix}/projects`, projectsRoutes);
+  app.use(`${prefix}/projects/:projectId/stages`, stagesRoutes);
+  app.use(`${prefix}/projects/:projectId/tasks`, tasksRoutes);
+  app.use(`${prefix}/projects/:projectId/tasks/:taskId/logs`, worklogsRoutes);
+  app.use(`${prefix}/projects/:projectId/assets`, assetsRoutes);
+  app.get(`${prefix}/projects/:projectId/dashboard`, authenticate, requireMember, tasksController.getDashboard);
+  app.get(`${prefix}/projects/:projectId/logs`, authenticate, requireMember, worklogsController.getWorkLogsByProject);
+};
+
+registerRoutes('/api');
+registerRoutes(''); // Mounts directly under root as well
 
 // ── 404 Handler ────────────────────────────────────────────
 app.use((req, res) => {
