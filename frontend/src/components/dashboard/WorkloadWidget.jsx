@@ -4,14 +4,14 @@ import { Users, AlertTriangle, CheckCircle2, Flame, Zap, Calendar, Check, Target
 export const WorkloadWidget = ({ workload }) => {
   if (!workload || workload.length === 0) {
     return (
-      <div className="bg-white border border-[#ECE0D0] rounded-3xl p-6 text-center text-stone-400 text-sm">
+      <div className="bg-white border border-slate-200/90 rounded-2xl p-6 text-center text-stone-400 text-sm shadow-sm">
         Belum ada data beban tugas anggota tim.
       </div>
     );
   }
 
   return (
-    <div className="bg-white border border-[#ECE0D0] rounded-2xl p-4 sm:p-5 shadow-xs">
+    <div className="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div>
           <h3 className="text-sm sm:text-base font-extrabold text-stone-900 flex items-center gap-2">
@@ -42,7 +42,7 @@ export const WorkloadWidget = ({ workload }) => {
           return (
             <div
               key={member.user_id}
-              className="p-3.5 rounded-xl bg-[#FAF7F2] border border-[#ECE0D0] hover:border-orange-200 transition-colors"
+              className="p-3.5 rounded-xl bg-slate-50 border border-slate-200/90 hover:border-orange-200 transition-colors"
             >
               <div className="flex items-center justify-between gap-3 mb-3">
                 <div className="flex items-center gap-3 min-w-0">
@@ -81,7 +81,7 @@ export const WorkloadWidget = ({ workload }) => {
               </div>
 
               {/* Progress bar based on completed tasks */}
-              <div className="w-full bg-[#EFE5D9] h-2.5 rounded-full overflow-hidden">
+              <div className="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${
                     completionPercent === 100

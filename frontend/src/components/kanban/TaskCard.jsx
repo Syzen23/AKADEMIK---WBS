@@ -182,10 +182,10 @@ export const TaskCard = ({
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       title="Klik kartu untuk membuka detail & instruksi tugas"
-      className={`group relative bg-white hover:bg-[#FFFCF9] border rounded-3xl p-4.5 shadow-xs transition-all duration-200 select-none cursor-pointer ${
+      className={`group relative bg-white hover:bg-white border rounded-3xl p-4.5 shadow-xs transition-all duration-200 select-none cursor-pointer ${
         isDragging
           ? 'opacity-40 scale-95 border-dashed border-orange-400 shadow-none'
-          : 'border-[#EFE5D9] hover:border-orange-300 hover:shadow-md hover:shadow-orange-950/5 hover:-translate-y-0.5'
+          : 'border-slate-200 hover:border-orange-400 hover:shadow-md hover:shadow-slate-900/5 hover:-translate-y-0.5'
       } ${canUpdateStatus ? 'active:cursor-grabbing' : ''}`}
     >
       {/* Top row: Priority & Badges & Options */}
@@ -196,7 +196,7 @@ export const TaskCard = ({
           )}
           <PriorityBadge priority={task.priority} />
           {task.stage_name && (
-            <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-[#FAF5EE] text-stone-600 font-medium border border-[#EFE4D6] truncate max-w-[120px]">
+            <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-slate-100 text-slate-700 font-medium border border-slate-200 truncate max-w-[120px]">
               {task.stage_name}
             </span>
           )}

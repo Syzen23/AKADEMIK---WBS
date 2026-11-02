@@ -112,11 +112,11 @@ export const KanbanColumn = ({
       className={`flex flex-col rounded-2xl p-3 sm:p-3.5 w-full min-w-0 sm:min-w-[260px] flex-1 transition-all duration-200 border ${
         isDragOver
           ? 'bg-orange-50/70 border-orange-400 ring-2 ring-orange-400/40 scale-[1.01]'
-          : 'bg-[#F6F1E8]/70 border-[#ECE0D0]'
+          : 'bg-slate-200/60 border-slate-200/80'
       }`}
     >
       {/* Column Header */}
-      <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-[#E8DACB]">
+      <div className="flex items-center justify-between pb-3.5 mb-3.5 border-b border-slate-300/80">
         <div className="flex items-center gap-2.5">
           <span className={`w-2.5 h-2.5 rounded-full ${style.indicator}`} />
           <h3 className="font-bold text-sm text-stone-800">{title}</h3>
@@ -181,7 +181,7 @@ export const KanbanColumn = ({
             <button
               type="button"
               onClick={() => setIsAddingInline(true)}
-              className="w-full py-2 px-3 rounded-2xl border border-dashed border-[#DFCDBB] hover:border-orange-400 bg-white/50 hover:bg-white text-stone-500 hover:text-orange-600 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer group"
+              className="w-full py-2 px-3 rounded-2xl border border-dashed border-slate-300/90 hover:border-orange-400 bg-white/70 hover:bg-white text-stone-600 hover:text-orange-600 text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer group shadow-2xs"
             >
               <Plus className="w-3.5 h-3.5 text-stone-400 group-hover:text-orange-500 transition-colors" />
               <span>+ Tambah Tugas Cepat</span>

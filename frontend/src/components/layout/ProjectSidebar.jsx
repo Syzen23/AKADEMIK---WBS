@@ -94,13 +94,13 @@ export const ProjectSidebar = ({
 
       {/* Sidebar Container */}
       <aside
-        className={`fixed top-0 bottom-0 left-0 z-50 flex flex-col bg-white border-r border-[#ECE0D0] transition-all duration-300 ease-in-out lg:static ${
+        className={`fixed top-0 bottom-0 left-0 z-50 flex flex-col bg-white border-r border-slate-200 transition-all duration-300 ease-in-out lg:static ${
           isMobileOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         } ${isCollapsed ? 'w-18' : 'w-60 sm:w-64'}`}
       >
         {/* Brand & App Title Header */}
         <div
-          className={`h-14 sm:h-15 flex items-center border-b border-[#F2E5D5] bg-[#FAF7F2]/40 shrink-0 ${
+          className={`h-14 sm:h-15 flex items-center border-b border-slate-100 bg-white shrink-0 ${
             isCollapsed ? 'justify-center px-2' : 'justify-between px-4'
           }`}
         >
@@ -144,7 +144,7 @@ export const ProjectSidebar = ({
               <button
                 type="button"
                 onClick={() => setIsCollapsed(true)}
-                className="hidden lg:flex items-center justify-center w-6 h-6 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-[#FAF7F2] border border-transparent hover:border-[#E8DACB] transition-colors cursor-pointer"
+                className="hidden lg:flex items-center justify-center w-6 h-6 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-slate-100 border border-transparent hover:border-slate-200 transition-colors cursor-pointer"
                 title="Ciutkan Sidebar"
               >
                 <ChevronLeft className="w-3.5 h-3.5" />
@@ -158,7 +158,7 @@ export const ProjectSidebar = ({
           <div className="space-y-2.5">
             {/* Workspace Identifier (Only in Expanded Mode) */}
             {!isCollapsed && (
-              <div className="px-2.5 py-1.5 rounded-xl bg-[#FAF7F2] border border-[#ECE0D0] flex items-center justify-between gap-2 shadow-2xs">
+              <div className="px-2.5 py-1.5 rounded-xl bg-slate-50 border border-slate-200/80 flex items-center justify-between gap-2 shadow-2xs">
                 <div className="min-w-0">
                   <div className="text-[9px] font-bold text-stone-400 uppercase tracking-wider truncate">
                     {project?.course_name || 'Matakuliah'}
@@ -195,7 +195,7 @@ export const ProjectSidebar = ({
                       } ${
                         active
                           ? 'bg-orange-500 text-white shadow-md shadow-orange-500/20 font-bold'
-                          : 'text-stone-600 hover:text-stone-900 hover:bg-[#FAF7F2] font-semibold'
+                          : 'text-stone-600 hover:text-stone-900 hover:bg-slate-100 font-semibold'
                       }`}
                       title={isCollapsed ? item.label : undefined}
                     >
@@ -217,7 +217,7 @@ export const ProjectSidebar = ({
                           className={`px-1.5 py-0.2 rounded-md text-[10px] font-extrabold ${
                             active
                               ? 'bg-orange-600 text-white'
-                              : 'bg-[#F2E8DC] text-stone-700'
+                              : 'bg-slate-100 text-slate-700'
                           }`}
                         >
                           {item.count}
@@ -230,7 +230,7 @@ export const ProjectSidebar = ({
             </div>
 
             {/* 2. TIM & ANALISIS */}
-            <div className="space-y-0.5 pt-1.5 border-t border-[#F2E8DC]">
+            <div className="space-y-0.5 pt-1.5 border-t border-slate-100">
               {!isCollapsed && (
                 <div className="px-2 pb-0.5 text-[9px] font-bold text-stone-400 uppercase tracking-wider">
                   Tim & Analisis
@@ -254,7 +254,7 @@ export const ProjectSidebar = ({
                       } ${
                         active
                           ? 'bg-orange-500 text-white shadow-md shadow-orange-500/20 font-bold'
-                          : 'text-stone-600 hover:text-stone-900 hover:bg-[#FAF7F2] font-semibold'
+                          : 'text-stone-600 hover:text-stone-900 hover:bg-slate-100 font-semibold'
                       }`}
                       title={isCollapsed ? item.label : undefined}
                     >
@@ -278,7 +278,7 @@ export const ProjectSidebar = ({
                               className={`px-1.5 py-0.2 rounded-md text-[10px] font-extrabold ${
                                 active
                               ? 'bg-orange-600 text-white'
-                              : 'bg-[#F2E8DC] text-stone-700'
+                              : 'bg-slate-100 text-slate-700'
                               }`}
                             >
                               {item.count}
@@ -307,7 +307,7 @@ export const ProjectSidebar = ({
           {/* 3. AKSI CEPAT (Only leader) */}
           {isLeader && (
             <div
-              className={`pt-2 border-t border-[#F2E5D5] space-y-1.5 ${
+              className={`pt-2 border-t border-slate-100 space-y-1.5 ${
                 isCollapsed ? 'flex flex-col items-center' : ''
               }`}
             >
@@ -343,7 +343,7 @@ export const ProjectSidebar = ({
                       onOpenCreateStage();
                       if (setIsMobileOpen) setIsMobileOpen(false);
                     }}
-                    className="flex items-center justify-center gap-1 px-2 py-1 text-[11px] font-semibold text-stone-700 hover:text-orange-600 bg-[#FAF7F2] hover:bg-[#FFF4ED] border border-[#E5D7C7] rounded-lg transition-all cursor-pointer"
+                    className="flex items-center justify-center gap-1 px-2 py-1 text-[11px] font-semibold text-stone-700 hover:text-orange-600 bg-slate-50 hover:bg-orange-50 border border-slate-200 rounded-lg transition-all cursor-pointer"
                   >
                     <Plus className="w-3 h-3 text-orange-500" />
                     <span>Tahap WBS</span>
@@ -355,7 +355,7 @@ export const ProjectSidebar = ({
                       onOpenAssetModal();
                       if (setIsMobileOpen) setIsMobileOpen(false);
                     }}
-                    className="flex items-center justify-center gap-1 px-2 py-1 text-[11px] font-semibold text-stone-700 hover:text-orange-600 bg-[#FAF7F2] hover:bg-[#FFF4ED] border border-[#E5D7C7] rounded-lg transition-all cursor-pointer"
+                    className="flex items-center justify-center gap-1 px-2 py-1 text-[11px] font-semibold text-stone-700 hover:text-orange-600 bg-slate-50 hover:bg-orange-50 border border-slate-200 rounded-lg transition-all cursor-pointer"
                   >
                     <Plus className="w-3 h-3 text-orange-500" />
                     <span>Tautkan Aset</span>
@@ -385,11 +385,11 @@ export const ProjectSidebar = ({
         </div>
 
         {/* Sidebar Bottom Footer (Profile & Back & Collapse Toggle) */}
-        <div className="p-2 sm:p-2.5 border-t border-[#F2E5D5] bg-[#FAF7F2]/50 shrink-0 space-y-1">
+        <div className="p-2 sm:p-2.5 border-t border-slate-100 bg-slate-50/50 shrink-0 space-y-1">
           {/* Back to Projects List */}
           <Link
             to="/projects"
-            className={`flex items-center gap-2 rounded-xl text-stone-600 hover:text-orange-600 hover:bg-white border border-transparent hover:border-[#E8DACB] transition-all cursor-pointer font-bold text-xs ${
+            className={`flex items-center gap-2 rounded-xl text-stone-600 hover:text-orange-600 hover:bg-white border border-transparent hover:border-slate-200 transition-all cursor-pointer font-bold text-xs ${
               isCollapsed ? 'p-1.5 justify-center' : 'px-2.5 py-1.5'
             }`}
             title="Kembali ke Semua Proyek"
@@ -400,7 +400,7 @@ export const ProjectSidebar = ({
 
           {/* User Profile Capsule */}
           <div
-            className={`flex items-center justify-between p-1 rounded-xl bg-white border border-[#ECE0D0] ${
+            className={`flex items-center justify-between p-1 rounded-xl bg-white border border-slate-200 ${
               isCollapsed ? 'justify-center' : ''
             }`}
           >

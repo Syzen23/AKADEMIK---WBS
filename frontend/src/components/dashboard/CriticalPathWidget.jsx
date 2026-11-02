@@ -5,14 +5,14 @@ import { Clock, Calendar, ShieldAlert } from 'lucide-react';
 export const CriticalPathWidget = ({ criticalPath }) => {
   if (!criticalPath || criticalPath.length === 0) {
     return (
-      <div className="bg-white border border-[#ECE0D0] rounded-3xl p-6 text-center text-stone-500 text-sm">
+      <div className="bg-white border border-slate-200/90 rounded-2xl p-6 text-center text-stone-500 text-sm shadow-sm">
         Tidak ada tugas kritis yang mendesak saat ini. Semua tugas jalur kritis telah selesai atau belum memiliki deadline.
       </div>
     );
   }
 
   return (
-    <div className="bg-white border border-[#ECE0D0] rounded-2xl p-4 sm:p-5 shadow-xs">
+    <div className="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
       <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div>
           <h3 className="text-sm sm:text-base font-extrabold text-stone-900 flex items-center gap-2">
@@ -37,7 +37,7 @@ export const CriticalPathWidget = ({ criticalPath }) => {
           return (
             <div
               key={task.id}
-              className="relative p-3.5 sm:p-4 rounded-xl bg-[#FAF7F2] border border-[#ECE0D0] hover:border-orange-300 transition-all flex flex-col justify-between shadow-2xs"
+              className="relative p-3.5 sm:p-4 rounded-xl bg-slate-50 border border-slate-200 hover:border-orange-300 transition-all flex flex-col justify-between shadow-2xs"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
@@ -52,7 +52,7 @@ export const CriticalPathWidget = ({ criticalPath }) => {
                 </h4>
 
                 <div className="flex items-center gap-2 text-xs text-stone-500 mb-4">
-                  <span className="font-semibold text-stone-700 bg-white border border-[#E8DACB] px-2 py-0.5 rounded-lg text-[11px]">
+                  <span className="font-semibold text-stone-700 bg-white border border-slate-200 px-2 py-0.5 rounded-lg text-[11px]">
                     {task.stage_name || 'WBS'}
                   </span>
                   <span>•</span>
@@ -64,7 +64,7 @@ export const CriticalPathWidget = ({ criticalPath }) => {
 
               {/* Deadline alert footer */}
               <div
-                className={`pt-3 border-t border-[#EAE0D2] flex items-center justify-between text-[11px] font-bold ${
+                className={`pt-3 border-t border-slate-200 flex items-center justify-between text-[11px] font-bold ${
                   isUrgent ? 'text-rose-700' : 'text-amber-700'
                 }`}
               >

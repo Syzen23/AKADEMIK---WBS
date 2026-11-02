@@ -92,7 +92,7 @@ export const ProjectOverview = ({
   return (
     <div className="space-y-4">
       {/* 1. Project Hero Overview Card */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-white via-[#FFF9F3] to-[#FAF7F2] border border-[#ECE0D0] p-4 sm:p-5 shadow-xs">
+      <div className="relative overflow-hidden rounded-2xl bg-white border border-slate-200/90 p-4 sm:p-5 shadow-sm">
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
           <div className="space-y-2.5 max-w-3xl">
             <div className="flex flex-wrap items-center gap-2">
@@ -131,7 +131,7 @@ export const ProjectOverview = ({
                 <button
                   type="button"
                   onClick={onOpenCreateStage}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-stone-700 hover:text-orange-600 bg-white hover:bg-orange-50/60 border border-[#E8DACB] rounded-xl transition-all cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-stone-700 hover:text-orange-600 bg-white hover:bg-orange-50/60 border border-slate-200 rounded-xl transition-all cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5 text-orange-500" />
                   <span>Tambah Tahap WBS</span>
@@ -139,7 +139,7 @@ export const ProjectOverview = ({
                 <button
                   type="button"
                   onClick={onOpenAssetModal}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-stone-700 hover:text-orange-600 bg-white hover:bg-orange-50/60 border border-[#E8DACB] rounded-xl transition-all cursor-pointer"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-stone-700 hover:text-orange-600 bg-white hover:bg-orange-50/60 border border-slate-200 rounded-xl transition-all cursor-pointer"
                 >
                   <Plus className="w-3.5 h-3.5 text-orange-500" />
                   <span>Tautkan Dokumen / Aset</span>
@@ -160,7 +160,7 @@ export const ProjectOverview = ({
           </div>
 
           {/* Invite Code Capsule Box */}
-          <div className="shrink-0 p-3.5 rounded-xl bg-white border border-[#E8DACB] shadow-2xs space-y-2 min-w-[200px]">
+          <div className="shrink-0 p-3.5 rounded-xl bg-slate-50 border border-slate-200 shadow-2xs space-y-2 min-w-[200px]">
             <div>
               <div className="text-[9px] font-bold text-stone-400 uppercase tracking-wider">
                 Kode Undangan Tim
@@ -197,7 +197,7 @@ export const ProjectOverview = ({
       {/* 2. Key Target-Based Metrics Row (Clean UX - No Clutter) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {/* Metric 1: Overall Progress */}
-        <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-[#ECE0D0] shadow-xs">
+        <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm">
           <div className="flex items-center justify-between gap-2 mb-1.5">
             <span className="text-xs font-bold text-stone-500">Progres Capstone</span>
             <span className="w-7 h-7 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center">
@@ -205,7 +205,7 @@ export const ProjectOverview = ({
             </span>
           </div>
           <div className="text-xl sm:text-2xl font-black text-stone-900">{progressPercent}%</div>
-          <div className="w-full bg-[#F2E8DC] rounded-full h-1.5 mt-2 overflow-hidden">
+          <div className="w-full bg-slate-100 rounded-full h-1.5 mt-2 overflow-hidden">
             <div
               className="bg-orange-500 h-1.5 rounded-full transition-all duration-500"
               style={{ width: `${progressPercent}%` }}
@@ -217,7 +217,7 @@ export const ProjectOverview = ({
         </div>
 
         {/* Metric 2: Project Deadline Target */}
-        <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-[#ECE0D0] shadow-xs">
+        <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm">
           <div className="flex items-center justify-between gap-2 mb-1.5">
             <span className="text-xs font-bold text-stone-500">Tenggat Proyek</span>
             <span className="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
@@ -242,7 +242,7 @@ export const ProjectOverview = ({
         </div>
 
         {/* Metric 3: Urgent Targets (Within 7 Days) */}
-        <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-[#ECE0D0] shadow-xs">
+        <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm">
           <div className="flex items-center justify-between gap-2 mb-1.5">
             <span className="text-xs font-bold text-stone-500">Mendekati Tenggat</span>
             <span className="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
@@ -257,7 +257,7 @@ export const ProjectOverview = ({
         </div>
 
         {/* Metric 4: Team & Stages */}
-        <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-[#ECE0D0] shadow-xs">
+        <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-slate-200/90 shadow-sm">
           <div className="flex items-center justify-between gap-2 mb-1.5">
             <span className="text-xs font-bold text-stone-500">Tahap & Anggota</span>
             <span className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
@@ -286,8 +286,8 @@ export const ProjectOverview = ({
       {/* 4. Dual Section: Stages Progress Breakdown & Critical Path Alert */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5 sm:gap-4 items-start">
         {/* Stages Breakdown Preview */}
-        <div className="bg-white border border-[#ECE0D0] rounded-2xl p-4 sm:p-5 shadow-xs">
-          <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#F2E8DC]">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-slate-100">
             <div className="flex items-center gap-2">
               <Layers className="w-4 h-4 text-orange-500" />
               <h3 className="text-xs font-bold text-stone-900 uppercase tracking-wider">
@@ -314,7 +314,7 @@ export const ProjectOverview = ({
               return (
                 <div
                   key={stage.id}
-                  className="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#ECE0D0] space-y-1.5"
+                  className="p-2.5 rounded-xl bg-slate-50 border border-slate-200/80 space-y-1.5"
                 >
                   <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2 font-bold text-stone-900">
@@ -328,7 +328,7 @@ export const ProjectOverview = ({
                       <span className="text-emerald-700 font-bold">{percent}%</span>
                     </div>
                   </div>
-                  <div className="w-full bg-[#EADCCB] rounded-full h-1 overflow-hidden">
+                  <div className="w-full bg-slate-200 rounded-full h-1 overflow-hidden">
                     <div
                       className="bg-orange-500 h-1 rounded-full transition-all duration-300"
                       style={{ width: `${percent}%` }}
@@ -356,8 +356,8 @@ export const ProjectOverview = ({
         </div>
 
         {/* Critical Path Tasks Snapshot */}
-        <div className="bg-white border border-[#ECE0D0] rounded-2xl p-4 sm:p-5 shadow-xs">
-          <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#F2E8DC]">
+        <div className="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+          <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-slate-100">
             <div className="flex items-center gap-2">
               <AlertTriangle className="w-4 h-4 text-amber-500" />
               <h3 className="text-xs font-bold text-stone-900 uppercase tracking-wider">

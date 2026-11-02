@@ -358,7 +358,7 @@ export const ProjectDetailPage = () => {
 
   if (projectLoading) {
     return (
-      <div className="min-h-screen bg-[#FAF7F2] text-stone-900 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-100 text-stone-900 flex items-center justify-center">
         <div className="text-center">
           <div className="w-10 h-10 border-4 border-orange-500 border-t-transparent rounded-full animate-spin mx-auto mb-3" />
           <p className="text-xs text-stone-500 font-semibold">Memuat ruang kerja proyek...</p>
@@ -369,7 +369,7 @@ export const ProjectDetailPage = () => {
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-[#FAF7F2] text-stone-900 flex items-center justify-center">
+      <div className="min-h-screen bg-slate-100 text-stone-900 flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-lg font-bold text-stone-800">Proyek Tidak Ditemukan</h2>
           <Link
@@ -384,7 +384,7 @@ export const ProjectDetailPage = () => {
   }
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-[#FAF7F2] text-stone-900">
+    <div className="flex h-screen w-screen overflow-hidden bg-slate-100 text-stone-900">
       {/* 1. Left Sidebar Navigation (Admin Dashboard Style) */}
       <ProjectSidebar
         project={project}
@@ -410,7 +410,7 @@ export const ProjectDetailPage = () => {
       />
 
       {/* 2. Main Visual Canvas Area (Right) */}
-      <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
+      <div className="flex-1 flex flex-col min-w-0 h-full overflow-hidden bg-slate-100">
         {/* Sticky Top Header Bar */}
         <ProjectTopBar
           project={project}
@@ -424,7 +424,7 @@ export const ProjectDetailPage = () => {
         />
 
         {/* Scrollable Visual Content Canvas */}
-        <main className="flex-1 overflow-y-auto p-3 sm:p-5 lg:p-6">
+        <main className="flex-1 overflow-y-auto p-3 sm:p-5 lg:p-6 bg-slate-100">
           <div className="max-w-7xl mx-auto space-y-4 pb-8">
             {/* Visual Content: Home / Overview Dashboard */}
             {activeTab === 'overview' && (
@@ -499,7 +499,7 @@ export const ProjectDetailPage = () => {
             {/* Visual Content: Berkas & Dokumen */}
             {activeTab === 'assets' && (
               <div className="space-y-3">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 sm:p-4 rounded-2xl border border-[#ECE0D0] shadow-xs">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/90 shadow-sm">
                   <div>
                     <h3 className="text-sm sm:text-base font-extrabold text-stone-900 flex items-center gap-2">
                       <Link2 className="w-4.5 h-4.5 text-orange-500 shrink-0" />
@@ -534,7 +534,7 @@ export const ProjectDetailPage = () => {
                     return (
                       <div
                         key={asset.id}
-                        className="p-3.5 sm:p-4 rounded-xl bg-white border border-[#ECE0D0] hover:border-orange-300 flex flex-col justify-between shadow-xs transition-all"
+                        className="p-3.5 sm:p-4 rounded-xl bg-white border border-slate-200/90 hover:border-orange-300 flex flex-col justify-between shadow-sm transition-all"
                       >
                         <div>
                           <div className="flex items-center justify-between mb-2">
@@ -570,7 +570,7 @@ export const ProjectDetailPage = () => {
                   })}
 
                   {assets.length === 0 && (
-                    <div className="col-span-full p-6 text-center bg-white border border-[#ECE0D0] rounded-2xl text-stone-500 text-xs font-medium">
+                    <div className="col-span-full p-6 text-center bg-white border border-slate-200/90 rounded-2xl text-stone-500 text-xs font-medium shadow-sm">
                       Belum ada aset atau tautan dokumen yang ditambahkan.
                     </div>
                   )}
@@ -580,8 +580,8 @@ export const ProjectDetailPage = () => {
 
             {/* Visual Content: Anggota Tim */}
             {activeTab === 'members' && (
-              <div className="bg-white border border-[#ECE0D0] rounded-2xl p-4 sm:p-5 shadow-xs">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-[#F2E8DC]">
+              <div className="bg-white border border-slate-200/90 rounded-2xl p-4 sm:p-5 shadow-sm">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-100">
                   <div>
                     <h3 className="text-base font-extrabold text-stone-900 flex items-center gap-2">
                       <Users className="w-5 h-5 text-orange-500 shrink-0" />
@@ -601,7 +601,7 @@ export const ProjectDetailPage = () => {
                   </button>
                 </div>
 
-                <div className="divide-y divide-[#F2E8DC]">
+                <div className="divide-y divide-slate-100">
                   {members.map((member) => {
                     const isSelf = member.id === user?.id || member.user_id === user?.id;
                     const isProjectLeader = member.role === 'leader' || member.id === project.leader_id;

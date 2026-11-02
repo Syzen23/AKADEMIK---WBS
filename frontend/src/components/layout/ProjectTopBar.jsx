@@ -68,13 +68,13 @@ export const ProjectTopBar = ({
     : null;
 
   return (
-    <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#ECE0D0] px-4 sm:px-6 py-2 sm:py-2.5 shadow-2xs">
+    <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200/80 px-4 sm:px-6 py-2 sm:py-2.5 shadow-2xs">
       <div className="flex items-center justify-between gap-3">
         {/* Left: Hamburger (mobile) + Breadcrumbs & Page Title */}
         <div className="flex items-center gap-2.5 min-w-0">
           <button
             onClick={onToggleMobileSidebar}
-            className="lg:hidden p-1.5 rounded-xl text-stone-600 hover:text-stone-900 hover:bg-[#FAF7F2] border border-[#E8DACB] transition-colors cursor-pointer"
+            className="lg:hidden p-1.5 rounded-xl text-stone-600 hover:text-stone-900 hover:bg-slate-50 border border-slate-200 transition-colors cursor-pointer"
             title="Buka Menu"
           >
             <Menu className="w-4.5 h-4.5" />
@@ -112,7 +112,7 @@ export const ProjectTopBar = ({
           {project?.invite_code && (
             <button
               onClick={onCopyInviteCode}
-              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#FAF7F2] hover:bg-[#FFF4ED] border border-[#E8DACB] text-[11px] font-semibold text-stone-700 transition-all cursor-pointer"
+              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-50 hover:bg-orange-50 border border-slate-200 text-[11px] font-semibold text-stone-700 transition-all cursor-pointer"
               title="Salin kode undangan"
             >
               {copiedCode ? (
@@ -133,7 +133,7 @@ export const ProjectTopBar = ({
 
           {/* Deadline Badge */}
           {deadlineFormatted && (
-            <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-[#FAF7F2] border border-[#E8DACB] text-[10px] text-stone-600 font-semibold">
+            <div className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-slate-50 border border-slate-200 text-[10px] text-stone-600 font-semibold">
               <Calendar className="w-3 h-3 text-orange-500" />
               <span>
                 Tenggat: <strong className="text-stone-800">{deadlineFormatted}</strong>

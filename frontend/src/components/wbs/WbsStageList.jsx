@@ -26,7 +26,7 @@ export const WbsStageList = ({
   return (
     <div className="space-y-3">
       {/* Header bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 sm:p-4 rounded-2xl border border-[#ECE0D0] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 sm:p-4 rounded-2xl border border-slate-200/90 shadow-sm">
         <div>
           <h3 className="text-sm sm:text-base font-extrabold text-stone-900 flex items-center gap-2">
             <Layers className="w-4.5 h-4.5 text-orange-500 shrink-0" />
@@ -64,10 +64,10 @@ export const WbsStageList = ({
           return (
             <div
               key={stage.id}
-              className="bg-white border border-[#ECE0D0] rounded-2xl overflow-hidden transition-all shadow-xs"
+              className="bg-white border border-slate-200/90 rounded-2xl overflow-hidden transition-all shadow-sm"
             >
               {/* Stage Header */}
-              <div className="p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-[#FAF7F2]/80 hover:bg-[#FAF7F2] transition-colors border-b border-[#F0E5D7]">
+              <div className="p-3 sm:p-3.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 bg-slate-50 hover:bg-slate-100/70 transition-colors border-b border-slate-200/80">
                 <div
                   className="flex items-center gap-2.5 sm:gap-3 cursor-pointer flex-1 min-w-0"
                   onClick={() => toggleExpand(stage.id)}
@@ -136,7 +136,7 @@ export const WbsStageList = ({
               </div>
 
               {/* Progress bar line */}
-              <div className="w-full bg-[#F2E8DC] h-1.5">
+              <div className="w-full bg-slate-200 h-1.5">
                 <div
                   className="bg-orange-500 h-1.5 transition-all duration-300"
                   style={{ width: `${progressPercent}%` }}
@@ -151,7 +151,7 @@ export const WbsStageList = ({
                       {stageTasks.map((task) => (
                         <div
                           key={task.id}
-                          className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-2xl bg-[#FAF7F2] hover:bg-[#FFF9F3] border border-[#ECE0D0] text-xs transition-colors"
+                          className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 rounded-2xl bg-slate-50/70 hover:bg-white border border-slate-200 text-xs transition-colors"
                         >
                           <div className="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
                             <StatusBadge status={task.status} />
@@ -175,7 +175,7 @@ export const WbsStageList = ({
                             <PriorityBadge priority={task.priority} />
 
                             {task.due_date ? (
-                              <span className="text-stone-600 bg-white border border-[#E8DACB] px-2 py-0.5 rounded-lg flex items-center gap-1 text-[11px] font-semibold shrink-0">
+                              <span className="text-stone-600 bg-white border border-slate-200 px-2 py-0.5 rounded-lg flex items-center gap-1 text-[11px] font-semibold shrink-0">
                                 <Calendar className="w-3 h-3 text-orange-500" />
                                 {new Date(task.due_date).toLocaleDateString('id-ID', {
                                   day: 'numeric',

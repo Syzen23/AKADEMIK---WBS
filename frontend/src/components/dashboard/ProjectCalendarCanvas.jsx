@@ -224,9 +224,9 @@ export const ProjectCalendarCanvas = ({
   };
 
   return (
-    <div className="bg-white border border-[#ECE0D0] rounded-2xl p-3.5 sm:p-5 shadow-xs space-y-4">
+    <div className="bg-white border border-slate-200/90 rounded-2xl p-3.5 sm:p-5 shadow-sm space-y-4">
       {/* Calendar Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2.5 sm:pb-3 border-b border-[#F2E8DC]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2.5 sm:pb-3 border-b border-slate-100">
         <div>
           <h2 className="text-sm sm:text-base font-black text-stone-900 flex items-center gap-2">
             <CalendarIcon className="w-4.5 h-4.5 text-orange-500" />
@@ -242,7 +242,7 @@ export const ProjectCalendarCanvas = ({
           <button
             type="button"
             onClick={handleJumpToToday}
-            className="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#FAF7F2] hover:bg-orange-50 text-stone-700 hover:text-orange-600 border border-[#E8DACB] transition-colors cursor-pointer"
+            className="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-50 hover:bg-orange-50 text-stone-700 hover:text-orange-600 border border-slate-200 transition-colors cursor-pointer"
           >
             Hari Ini
           </button>
@@ -259,7 +259,7 @@ export const ProjectCalendarCanvas = ({
             </button>
           )}
 
-          <div className="flex items-center bg-[#FAF7F2] border border-[#E8DACB] rounded-lg p-0.5">
+          <div className="flex items-center bg-slate-50 border border-slate-200 rounded-lg p-0.5">
             <button
               type="button"
               onClick={handlePrevMonth}
@@ -322,7 +322,7 @@ export const ProjectCalendarCanvas = ({
                   } ${
                     isSelected
                       ? 'ring-2 ring-orange-500 border-orange-400 bg-orange-50/30 shadow-xs'
-                      : 'border-[#EFE5D9] hover:border-orange-300'
+                      : 'border-slate-200 hover:border-orange-300'
                   }`}
                 >
                   {/* Top Bar inside cell: Day number & Markers */}
@@ -410,9 +410,9 @@ export const ProjectCalendarCanvas = ({
         </div>
 
         {/* Right Column: Target & Agenda Details (5 cols) */}
-        <div className="lg:col-span-5 xl:col-span-4 bg-[#FAF7F2] border border-[#ECE0D0] rounded-xl p-3.5 space-y-3">
+        <div className="lg:col-span-5 xl:col-span-4 bg-slate-50 border border-slate-200/90 rounded-xl p-3.5 space-y-3">
           {/* Header & Mode Switch */}
-          <div className="flex items-center justify-between pb-3 border-b border-[#E8DACB]">
+          <div className="flex items-center justify-between pb-3 border-b border-slate-200">
             <div>
               <h3 className="text-xs font-extrabold text-stone-900 uppercase tracking-wider">
                 {selectedDateKey ? 'Target Tanggal Terpilih' : 'Agenda Target Mendatang'}
@@ -444,7 +444,7 @@ export const ProjectCalendarCanvas = ({
 
           {/* Quick Filter tabs if in 'All' mode */}
           {!selectedDateKey && (
-            <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-[#E8DACB] text-[11px]">
+            <div className="flex items-center gap-1 bg-white p-1 rounded-xl border border-slate-200 text-[11px]">
               <button
                 type="button"
                 onClick={() => setAgendaFilter('all')}
@@ -499,11 +499,11 @@ export const ProjectCalendarCanvas = ({
                       ? 'border-emerald-200 bg-emerald-50/20 opacity-85'
                       : isOverdue
                       ? 'border-rose-200 bg-rose-50/30'
-                      : 'border-[#E8DACB] hover:border-orange-300'
+                      : 'border-slate-200 hover:border-orange-300'
                   }`}
                 >
                   <div className="flex items-start justify-between gap-2 mb-1.5">
-                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#FAF5EE] text-stone-600 border border-[#EFE4D6] truncate max-w-[120px]">
+                    <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-slate-100 text-slate-700 border border-slate-200 truncate max-w-[120px]">
                       {task.stage_name || 'Tahap WBS'}
                     </span>
 

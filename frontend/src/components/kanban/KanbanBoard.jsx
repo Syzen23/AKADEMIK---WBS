@@ -75,7 +75,7 @@ export const KanbanBoard = ({
       )}
 
       {/* Filter Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-2.5 bg-white p-3 sm:p-3.5 rounded-2xl border border-[#ECE0D0] shadow-xs">
+      <div className="flex flex-wrap items-center justify-between gap-2.5 bg-white p-3 sm:p-3.5 rounded-2xl border border-slate-200/90 shadow-sm">
         {/* Search Bar */}
         <div className="relative w-full sm:flex-1 sm:max-w-sm min-w-0">
           <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-2.5" />
@@ -84,7 +84,7 @@ export const KanbanBoard = ({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Cari nama tugas atau anggota..."
-            className="w-full pl-9 pr-8 py-1.5 rounded-xl bg-[#FAF7F2] border border-[#E8DACB] text-stone-900 text-xs focus:border-orange-500 focus:bg-white focus:outline-none transition-all placeholder:text-stone-400"
+            className="w-full pl-9 pr-8 py-1.5 rounded-xl bg-slate-50 border border-slate-200 text-stone-900 text-xs focus:border-orange-500 focus:bg-white focus:outline-none transition-all placeholder:text-stone-400"
           />
           {searchQuery && (
             <button
@@ -99,7 +99,7 @@ export const KanbanBoard = ({
         <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 w-full sm:w-auto">
           {/* Stage filter */}
           {stages.length > 0 && (
-            <div className="flex items-center gap-2 bg-[#FAF7F2] px-3 py-1.5 rounded-2xl border border-[#E8DACB] text-xs">
+            <div className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-2xl border border-slate-200 text-xs">
               <Layers className="w-3.5 h-3.5 text-stone-400" />
               <select
                 value={selectedStage}
@@ -118,7 +118,7 @@ export const KanbanBoard = ({
 
           {/* Member filter */}
           {members.length > 0 && (
-            <div className="flex items-center gap-2 bg-[#FAF7F2] px-3 py-1.5 rounded-2xl border border-[#E8DACB] text-xs">
+            <div className="flex items-center gap-2 bg-slate-50 px-3 py-1.5 rounded-2xl border border-slate-200 text-xs">
               <Users className="w-3.5 h-3.5 text-stone-400" />
               <select
                 value={selectedMember}
