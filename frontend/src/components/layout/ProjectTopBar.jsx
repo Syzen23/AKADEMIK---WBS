@@ -11,6 +11,7 @@ import {
   Link2,
   Users,
   LayoutDashboard,
+  StickyNote,
 } from 'lucide-react';
 
 export const ProjectTopBar = ({
@@ -18,6 +19,7 @@ export const ProjectTopBar = ({
   activeTab,
   isLeader = false,
   onOpenCreateTask,
+  onOpenQuickMemo,
   onToggleMobileSidebar,
   onCopyInviteCode,
   copiedCode = false,
@@ -128,6 +130,18 @@ export const ProjectTopBar = ({
                   </span>
                 </>
               )}
+            </button>
+          )}
+
+          {/* Quick Memo Shortcut Button */}
+          {onOpenQuickMemo && (
+            <button
+              onClick={onOpenQuickMemo}
+              className="flex items-center gap-1 sm:gap-1.5 px-2.5 py-1 rounded-xl bg-amber-50 hover:bg-amber-100/90 border border-amber-200/90 text-[11px] font-bold text-amber-900 transition-all cursor-pointer shadow-xs"
+              title="Buka Catatan Cepat & Memo Mahasiswa"
+            >
+              <StickyNote className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+              <span className="hidden sm:inline">Catatan Cepat</span>
             </button>
           )}
 

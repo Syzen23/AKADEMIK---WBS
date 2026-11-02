@@ -15,6 +15,7 @@ const stagesRoutes = require('./modules/stages/stages.routes');
 const tasksRoutes = require('./modules/tasks/tasks.routes');
 const worklogsRoutes = require('./modules/worklogs/worklogs.routes');
 const assetsRoutes = require('./modules/assets/assets.routes');
+const memosRoutes = require('./modules/memos/memos.routes');
 
 const app = express();
 
@@ -119,6 +120,7 @@ const registerRoutes = (prefix = '') => {
   app.use(`${prefix}/projects/:projectId/tasks`, tasksRoutes);
   app.use(`${prefix}/projects/:projectId/tasks/:taskId/logs`, worklogsRoutes);
   app.use(`${prefix}/projects/:projectId/assets`, assetsRoutes);
+  app.use(`${prefix}/memos`, memosRoutes);
   app.get(`${prefix}/projects/:projectId/dashboard`, authenticate, requireMember, tasksController.getDashboard);
   app.get(`${prefix}/projects/:projectId/logs`, authenticate, requireMember, worklogsController.getWorkLogsByProject);
 };

@@ -5,6 +5,7 @@ import { RoleBadge } from '../components/ui/Badge';
 import { ConfirmModal } from '../components/ui/ConfirmModal';
 import { CreateProjectModal } from '../components/modals/CreateProjectModal';
 import { JoinProjectModal } from '../components/modals/JoinProjectModal';
+import { QuickMemoModal } from '../components/modals/QuickMemoModal';
 import { useProjects, useDeleteProject } from '../hooks/useProjects';
 import { useAuth } from '../context/AuthContext';
 import { useToast } from '../context/ToastContext';
@@ -19,6 +20,7 @@ import {
   Sparkles,
   BookOpen,
   Trash2,
+  StickyNote,
 } from 'lucide-react';
 
 export const ProjectsPage = () => {
@@ -29,6 +31,7 @@ export const ProjectsPage = () => {
 
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isJoinOpen, setIsJoinOpen] = useState(false);
+  const [isQuickMemoOpen, setIsQuickMemoOpen] = useState(false);
   const [copiedCode, setCopiedCode] = useState(null);
 
   const [confirmModal, setConfirmModal] = useState({
@@ -71,6 +74,7 @@ export const ProjectsPage = () => {
       <Navbar
         onOpenCreateProject={() => setIsCreateOpen(true)}
         onOpenJoinProject={() => setIsJoinOpen(true)}
+        onOpenQuickMemo={() => setIsQuickMemoOpen(true)}
       />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
@@ -103,6 +107,14 @@ export const ProjectsPage = () => {
               >
                 <KeyRound className="w-4 h-4 text-orange-500 shrink-0" />
                 <span>Gabung via Kode Invite</span>
+              </button>
+
+              <button
+                onClick={() => setIsQuickMemoOpen(true)}
+                className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-amber-900 bg-amber-50 hover:bg-amber-100 border border-amber-300 transition-all cursor-pointer shadow-xs"
+              >
+                <StickyNote className="w-4 h-4 text-amber-600 shrink-0" />
+                <span>Catatan Cepat Pribadi</span>
               </button>
             </div>
           </div>
@@ -259,6 +271,10 @@ export const ProjectsPage = () => {
       <JoinProjectModal
         isOpen={isJoinOpen}
         onClose={() => setIsJoinOpen(false)}
+      />
+      <QuickMemoModal
+        isOpen={isQuickMemoOpen}
+        onClose={() => setIsQuickMemoOpen(false)}
       />
       <ConfirmModal
         isOpen={confirmModal.isOpen}

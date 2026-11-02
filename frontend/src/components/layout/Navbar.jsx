@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
-import { LogOut, Layers, Plus, KeyRound } from 'lucide-react';
+import { LogOut, Layers, Plus, KeyRound, StickyNote } from 'lucide-react';
 
-export const Navbar = ({ onOpenCreateProject, onOpenJoinProject }) => {
+export const Navbar = ({ onOpenCreateProject, onOpenJoinProject, onOpenQuickMemo }) => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
 
@@ -45,6 +45,17 @@ export const Navbar = ({ onOpenCreateProject, onOpenJoinProject }) => {
             >
               <KeyRound className="w-3.5 h-3.5 text-orange-500 shrink-0" />
               <span className="hidden sm:inline">Gabung Proyek</span>
+            </button>
+          )}
+
+          {onOpenQuickMemo && (
+            <button
+              onClick={onOpenQuickMemo}
+              className="flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1.5 sm:py-2 text-xs font-bold text-amber-900 bg-amber-50 hover:bg-amber-100/90 border border-amber-200/90 rounded-2xl shadow-xs transition-all hover:scale-[1.02] cursor-pointer whitespace-nowrap"
+              title="Catatan Cepat Pribadi (Memo Kuliah & Seminar)"
+            >
+              <StickyNote className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+              <span className="hidden sm:inline">Catatan Cepat</span>
             </button>
           )}
 

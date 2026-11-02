@@ -16,6 +16,7 @@ import { EditStageModal } from '../components/modals/EditStageModal';
 import { AddDependencyModal } from '../components/modals/AddDependencyModal';
 import { WorkLogModal } from '../components/modals/WorkLogModal';
 import { AssetModal } from '../components/modals/AssetModal';
+import { QuickMemoModal } from '../components/modals/QuickMemoModal';
 
 import { useProjectDetail, useProjectMembers, useRemoveMember, useDeleteProject } from '../hooks/useProjects';
 import { useStages, useDeleteStage, useApplyStageTemplate } from '../hooks/useStages';
@@ -128,6 +129,7 @@ export const ProjectDetailPage = () => {
   const [selectedTaskForWorkLog, setSelectedTaskForWorkLog] = useState(null);
   const [selectedTaskForEdit, setSelectedTaskForEdit] = useState(null);
   const [selectedStageForEdit, setSelectedStageForEdit] = useState(null);
+  const [isQuickMemoOpen, setIsQuickMemoOpen] = useState(false);
 
   // Confirmation Modal state
   const [confirmModal, setConfirmModal] = useState({
@@ -417,6 +419,7 @@ export const ProjectDetailPage = () => {
           activeTab={activeTab}
           isLeader={isLeader}
           onOpenCreateTask={() => handleOpenCreateTask('To Do')}
+          onOpenQuickMemo={() => setIsQuickMemoOpen(true)}
           onToggleMobileSidebar={() => setIsMobileSidebarOpen(!isMobileSidebarOpen)}
           onCopyInviteCode={handleCopyCode}
           copiedCode={copiedCode}
@@ -744,6 +747,11 @@ export const ProjectDetailPage = () => {
         isOpen={isAssetModalOpen}
         onClose={() => setIsAssetModalOpen(false)}
         projectId={projectId}
+      />
+
+      <QuickMemoModal
+        isOpen={isQuickMemoOpen}
+        onClose={() => setIsQuickMemoOpen(false)}
       />
 
       {/* Modern Confirmation Dialog */}
