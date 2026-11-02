@@ -424,9 +424,9 @@ export const ProjectDetailPage = () => {
         />
 
         {/* Scrollable Visual Content Canvas */}
-        <main className="flex-1 overflow-y-auto p-3 sm:p-5 lg:p-6 bg-slate-100">
-          <div className="max-w-7xl mx-auto space-y-4 pb-8">
-            {/* Visual Content: Home / Overview Dashboard */}
+        <main className="flex-1 overflow-y-auto p-2.5 sm:p-3.5 lg:p-4 bg-slate-100">
+          <div className="max-w-[1600px] mx-auto space-y-3 pb-2 sm:pb-4">
+            {/* Visual Content: Beranda Dashboard (3-Kolom Terpadu) */}
             {activeTab === 'overview' && (
               <ProjectOverview
                 project={project}

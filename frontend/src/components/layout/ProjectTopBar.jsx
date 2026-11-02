@@ -25,8 +25,8 @@ export const ProjectTopBar = ({
 }) => {
   const tabMeta = {
     overview: {
-      title: 'Home / Overview Proyek',
-      description: 'Ringkasan kemajuan capstone, jadwal, dan status seluruh fitur.',
+      title: 'Beranda Proyek',
+      description: 'Ringkasan visual 3-kolom status capstone, kalender target, dan jalur kritis.',
       icon: LayoutDashboard,
     },
     kanban: {

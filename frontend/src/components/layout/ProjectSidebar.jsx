@@ -38,8 +38,8 @@ export const ProjectSidebar = ({
   const primaryMenuItems = [
     {
       id: 'overview',
-      label: 'Home / Overview',
-      description: 'Ringkasan & status seluruh fitur',
+      label: 'Beranda',
+      description: 'Ringkasan visual 3-kolom & kalender',
       icon: LayoutDashboard,
     },
     {
