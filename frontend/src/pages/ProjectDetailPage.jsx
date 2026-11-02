@@ -424,8 +424,8 @@ export const ProjectDetailPage = () => {
         />
 
         {/* Scrollable Visual Content Canvas */}
-        <main className="flex-1 overflow-y-auto p-3 sm:p-6 lg:p-8">
-          <div className="max-w-7xl mx-auto space-y-6 pb-12">
+        <main className="flex-1 overflow-y-auto p-3 sm:p-5 lg:p-6">
+          <div className="max-w-7xl mx-auto space-y-4 pb-8">
             {/* Visual Content: Home / Overview Dashboard */}
             {activeTab === 'overview' && (
               <ProjectOverview
@@ -498,11 +498,11 @@ export const ProjectDetailPage = () => {
 
             {/* Visual Content: Berkas & Dokumen */}
             {activeTab === 'assets' && (
-              <div className="space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-4 sm:p-5 rounded-3xl border border-[#ECE0D0] shadow-xs">
+              <div className="space-y-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-white p-3.5 sm:p-4 rounded-2xl border border-[#ECE0D0] shadow-xs">
                   <div>
-                    <h3 className="text-base font-extrabold text-stone-900 flex items-center gap-2">
-                      <Link2 className="w-5 h-5 text-orange-500 shrink-0" />
+                    <h3 className="text-sm sm:text-base font-extrabold text-stone-900 flex items-center gap-2">
+                      <Link2 className="w-4.5 h-4.5 text-orange-500 shrink-0" />
                       <span>Tautan Berkas & Dokumen Proyek</span>
                     </h3>
                     <p className="text-xs text-stone-500 mt-0.5">
@@ -513,7 +513,7 @@ export const ProjectDetailPage = () => {
                   {isLeader && (
                     <button
                       onClick={() => setIsAssetModalOpen(true)}
-                      className="self-start sm:self-auto flex items-center gap-1.5 px-4 py-2 text-xs font-bold text-white bg-orange-500 hover:bg-orange-600 rounded-2xl transition-all shadow-md shadow-orange-500/20 cursor-pointer shrink-0"
+                      className="self-start sm:self-auto flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-orange-500 hover:bg-orange-600 rounded-xl transition-all shadow-md shadow-orange-500/20 cursor-pointer shrink-0"
                     >
                       <Plus className="w-4 h-4" />
                       <span>Tambah Tautan</span>
@@ -521,7 +521,7 @@ export const ProjectDetailPage = () => {
                   )}
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                   {assets.map((asset) => {
                     const typeLabels = {
                       github: 'GitHub Repository',
@@ -534,11 +534,11 @@ export const ProjectDetailPage = () => {
                     return (
                       <div
                         key={asset.id}
-                        className="p-5 rounded-3xl bg-white border border-[#ECE0D0] hover:border-orange-300 flex flex-col justify-between shadow-xs transition-all"
+                        className="p-3.5 sm:p-4 rounded-xl bg-white border border-[#ECE0D0] hover:border-orange-300 flex flex-col justify-between shadow-xs transition-all"
                       >
                         <div>
-                          <div className="flex items-center justify-between mb-2.5">
-                            <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-orange-50 text-orange-700 border border-orange-200">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-orange-50 text-orange-700 border border-orange-200">
                               {typeLabels[asset.asset_type] || asset.asset_type}
                             </span>
                             {isLeader && (
@@ -547,7 +547,7 @@ export const ProjectDetailPage = () => {
                                 className="p-1 text-stone-400 hover:text-rose-600 transition-colors cursor-pointer"
                                 title="Hapus aset"
                               >
-                                <Trash2 className="w-4 h-4" />
+                                <Trash2 className="w-3.5 h-3.5" />
                               </button>
                             )}
                           </div>
@@ -560,7 +560,7 @@ export const ProjectDetailPage = () => {
                           href={asset.asset_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="mt-4 inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-2xl text-xs font-bold text-orange-700 bg-orange-50 hover:bg-orange-100 border border-orange-200 transition-all cursor-pointer"
+                          className="mt-3 inline-flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-orange-700 bg-orange-50 hover:bg-orange-100 border border-orange-200 transition-all cursor-pointer"
                         >
                           <span>Buka Tautan</span>
                           <ExternalLink className="w-3.5 h-3.5 text-orange-600" />
@@ -570,7 +570,7 @@ export const ProjectDetailPage = () => {
                   })}
 
                   {assets.length === 0 && (
-                    <div className="col-span-full p-8 text-center bg-white border border-[#ECE0D0] rounded-3xl text-stone-500 text-xs font-medium">
+                    <div className="col-span-full p-6 text-center bg-white border border-[#ECE0D0] rounded-2xl text-stone-500 text-xs font-medium">
                       Belum ada aset atau tautan dokumen yang ditambahkan.
                     </div>
                   )}
@@ -580,8 +580,8 @@ export const ProjectDetailPage = () => {
 
             {/* Visual Content: Anggota Tim */}
             {activeTab === 'members' && (
-              <div className="bg-white border border-[#ECE0D0] rounded-3xl p-4 sm:p-7 shadow-xs">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-[#F2E8DC]">
+              <div className="bg-white border border-[#ECE0D0] rounded-2xl p-4 sm:p-5 shadow-xs">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 pb-3 border-b border-[#F2E8DC]">
                   <div>
                     <h3 className="text-base font-extrabold text-stone-900 flex items-center gap-2">
                       <Users className="w-5 h-5 text-orange-500 shrink-0" />

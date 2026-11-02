@@ -12,23 +12,23 @@ export const CriticalPathWidget = ({ criticalPath }) => {
   }
 
   return (
-    <div className="bg-white border border-[#ECE0D0] rounded-3xl p-6 sm:p-7 shadow-xs">
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+    <div className="bg-white border border-[#ECE0D0] rounded-2xl p-4 sm:p-5 shadow-xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div>
-          <h3 className="text-base font-extrabold text-stone-900 flex items-center gap-2">
-            <ShieldAlert className="w-5 h-5 text-orange-500" />
-            3 Tugas Jalur Kritis (Critical Path Bottleneck)
+          <h3 className="text-sm sm:text-base font-extrabold text-stone-900 flex items-center gap-2">
+            <ShieldAlert className="w-4.5 h-4.5 text-orange-500" />
+            <span>3 Tugas Jalur Kritis (Critical Path Bottleneck)</span>
           </h3>
           <p className="text-xs text-stone-500 mt-0.5">
             Tugas prioritas tinggi yang paling menentukan keberhasilan tenggat akhir capstone.
           </p>
         </div>
-        <span className="text-[11px] px-3 py-1 rounded-full bg-orange-50 text-orange-700 border border-orange-200 font-bold">
+        <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-orange-50 text-orange-700 border border-orange-200 font-bold">
           Top 3 Prioritas Utama
         </span>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         {criticalPath.map((task, index) => {
           const hoursUntilDue = parseFloat(task.hours_until_due || 0);
           const daysLeft = Math.ceil(hoursUntilDue / 24);
@@ -37,7 +37,7 @@ export const CriticalPathWidget = ({ criticalPath }) => {
           return (
             <div
               key={task.id}
-              className="relative p-5 rounded-2xl bg-[#FAF7F2] border border-[#ECE0D0] hover:border-orange-300 transition-all flex flex-col justify-between shadow-2xs"
+              className="relative p-3.5 sm:p-4 rounded-xl bg-[#FAF7F2] border border-[#ECE0D0] hover:border-orange-300 transition-all flex flex-col justify-between shadow-2xs"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">

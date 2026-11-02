@@ -11,24 +11,24 @@ export const WorkloadWidget = ({ workload }) => {
   }
 
   return (
-    <div className="bg-white border border-[#ECE0D0] rounded-3xl p-6 sm:p-7 shadow-xs">
-      <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
+    <div className="bg-white border border-[#ECE0D0] rounded-2xl p-4 sm:p-5 shadow-xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
         <div>
-          <h3 className="text-base font-extrabold text-stone-900 flex items-center gap-2">
-            <Users className="w-5 h-5 text-orange-500" />
-            Distribusi Tugas & Beban Anggota Tim
+          <h3 className="text-sm sm:text-base font-extrabold text-stone-900 flex items-center gap-2">
+            <Users className="w-4.5 h-4.5 text-orange-500" />
+            <span>Distribusi Tugas & Beban Anggota Tim</span>
           </h3>
           <p className="text-xs text-stone-500 mt-0.5">
             Pantau pembagian tugas aktif, progres penyelesaian, dan kepatuhan tenggat hari antarmahasiswa.
           </p>
         </div>
-        <span className="text-[11px] px-3 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold flex items-center gap-1.5">
-          <Zap className="w-3.5 h-3.5 text-emerald-600" />
-          Redis In-Memory Cache Aktif
+        <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-bold flex items-center gap-1.5">
+          <Zap className="w-3 h-3 text-emerald-600" />
+          <span>Redis Cache Aktif</span>
         </span>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         {workload.map((member) => {
           const activeTasks = parseInt(member.active_tasks || 0, 10);
           const doneTasks = parseInt(member.done_tasks || 0, 10);
@@ -42,7 +42,7 @@ export const WorkloadWidget = ({ workload }) => {
           return (
             <div
               key={member.user_id}
-              className="p-4.5 rounded-2xl bg-[#FAF7F2] border border-[#ECE0D0] hover:border-orange-200 transition-colors"
+              className="p-3.5 rounded-xl bg-[#FAF7F2] border border-[#ECE0D0] hover:border-orange-200 transition-colors"
             >
               <div className="flex items-center justify-between gap-3 mb-3">
                 <div className="flex items-center gap-3 min-w-0">

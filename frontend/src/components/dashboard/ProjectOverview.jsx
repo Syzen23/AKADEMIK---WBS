@@ -90,36 +90,36 @@ export const ProjectOverview = ({
   const criticalTasks = dashboardData?.criticalPath || [];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* 1. Project Hero Overview Card */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-white via-[#FFF9F3] to-[#FAF7F2] border border-[#ECE0D0] p-6 sm:p-8 shadow-xs">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-          <div className="space-y-3 max-w-3xl">
-            <div className="flex flex-wrap items-center gap-2.5">
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-orange-100/80 text-orange-700 border border-orange-200 flex items-center gap-1.5">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-white via-[#FFF9F3] to-[#FAF7F2] border border-[#ECE0D0] p-4 sm:p-5 shadow-xs">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+          <div className="space-y-2.5 max-w-3xl">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-orange-100/80 text-orange-700 border border-orange-200 flex items-center gap-1.5">
                 <BookOpen className="w-3.5 h-3.5 text-orange-500" />
                 {project.course_name}
               </span>
               <RoleBadge role={isLeader ? 'leader' : 'member'} />
-              <span className="text-xs font-semibold px-3 py-1 rounded-full bg-stone-100 text-stone-700 border border-stone-200 flex items-center gap-1.5">
+              <span className="text-[11px] font-semibold px-2.5 py-0.5 rounded-full bg-stone-100 text-stone-700 border border-stone-200 flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-orange-500" />
-                Tenggat Proyek: <strong className="text-stone-900">{deadlineFormatted}</strong>
+                Tenggat: <strong className="text-stone-900">{deadlineFormatted}</strong>
               </span>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-stone-900 tracking-tight leading-tight">
+            <h1 className="text-xl sm:text-2xl font-black text-stone-900 tracking-tight leading-snug">
               {project.title}
             </h1>
 
             {project.description && (
-              <p className="text-xs sm:text-sm text-stone-600 leading-relaxed font-medium">
+              <p className="text-xs text-stone-600 leading-relaxed font-medium line-clamp-2">
                 {project.description}
               </p>
             )}
 
             {/* Quick Action buttons for leader */}
             {isLeader && (
-              <div className="flex flex-wrap items-center gap-2 pt-2">
+              <div className="flex flex-wrap items-center gap-2 pt-1">
                 <button
                   type="button"
                   onClick={onOpenCreateTask}
@@ -148,7 +148,7 @@ export const ProjectOverview = ({
                   <button
                     type="button"
                     onClick={onDeleteProject}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-rose-600 hover:text-white bg-rose-50 hover:bg-rose-600 border border-rose-200 hover:border-rose-600 rounded-xl transition-all cursor-pointer sm:ml-auto"
+                    className="inline-flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold text-rose-600 hover:text-white bg-rose-50 hover:bg-rose-600 border border-rose-200 hover:border-rose-600 rounded-xl transition-all cursor-pointer sm:ml-auto"
                     title="Hapus ruang proyek ini secara permanen"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
@@ -160,32 +160,32 @@ export const ProjectOverview = ({
           </div>
 
           {/* Invite Code Capsule Box */}
-          <div className="shrink-0 p-5 rounded-2xl bg-white border border-[#E8DACB] shadow-2xs space-y-3 min-w-[220px]">
+          <div className="shrink-0 p-3.5 rounded-xl bg-white border border-[#E8DACB] shadow-2xs space-y-2 min-w-[200px]">
             <div>
-              <div className="text-[10px] font-bold text-stone-400 uppercase tracking-wider">
+              <div className="text-[9px] font-bold text-stone-400 uppercase tracking-wider">
                 Kode Undangan Tim
               </div>
               <div className="font-mono text-base font-extrabold text-orange-700 mt-0.5 tracking-wider">
                 {project.invite_code}
               </div>
-              <p className="text-[11px] text-stone-500 mt-1 leading-tight">
-                Bagikan kode ini kepada rekan tim untuk bergabung ke ruang proyek.
+              <p className="text-[10px] text-stone-500 mt-0.5 leading-tight">
+                Bagikan kode ini untuk bergabung ke ruang proyek.
               </p>
             </div>
 
             <button
               type="button"
               onClick={onCopyInviteCode}
-              className="w-full flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-bold rounded-xl bg-orange-50 hover:bg-orange-100/80 border border-orange-200 text-orange-800 transition-colors cursor-pointer"
+              className="w-full flex items-center justify-center gap-1.5 px-2.5 py-1.5 text-xs font-bold rounded-lg bg-orange-50 hover:bg-orange-100/80 border border-orange-200 text-orange-800 transition-colors cursor-pointer"
             >
               {copiedCode ? (
                 <>
-                  <Check className="w-4 h-4 text-emerald-600" />
+                  <Check className="w-3.5 h-3.5 text-emerald-600" />
                   <span className="text-emerald-700">Kode Berhasil Disalin!</span>
                 </>
               ) : (
                 <>
-                  <Copy className="w-4 h-4 text-orange-600" />
+                  <Copy className="w-3.5 h-3.5 text-orange-600" />
                   <span>Salin Kode Undangan</span>
                 </>
               )}
@@ -195,36 +195,36 @@ export const ProjectOverview = ({
       </div>
 
       {/* 2. Key Target-Based Metrics Row (Clean UX - No Clutter) */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {/* Metric 1: Overall Progress */}
-        <div className="p-5 rounded-3xl bg-white border border-[#ECE0D0] shadow-xs">
-          <div className="flex items-center justify-between gap-2 mb-2">
+        <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-[#ECE0D0] shadow-xs">
+          <div className="flex items-center justify-between gap-2 mb-1.5">
             <span className="text-xs font-bold text-stone-500">Progres Capstone</span>
-            <span className="w-8 h-8 rounded-xl bg-orange-50 text-orange-600 flex items-center justify-center">
-              <TrendingUp className="w-4 h-4" />
+            <span className="w-7 h-7 rounded-lg bg-orange-50 text-orange-600 flex items-center justify-center">
+              <TrendingUp className="w-3.5 h-3.5" />
             </span>
           </div>
-          <div className="text-2xl font-black text-stone-900">{progressPercent}%</div>
-          <div className="w-full bg-[#F2E8DC] rounded-full h-2 mt-2 overflow-hidden">
+          <div className="text-xl sm:text-2xl font-black text-stone-900">{progressPercent}%</div>
+          <div className="w-full bg-[#F2E8DC] rounded-full h-1.5 mt-2 overflow-hidden">
             <div
-              className="bg-orange-500 h-2 rounded-full transition-all duration-500"
+              className="bg-orange-500 h-1.5 rounded-full transition-all duration-500"
               style={{ width: `${progressPercent}%` }}
             />
           </div>
-          <div className="text-[11px] text-stone-500 mt-2 font-medium">
+          <div className="text-[10px] text-stone-500 mt-1.5 font-medium">
             {doneTasks} dari {totalTasks} tugas selesai
           </div>
         </div>
 
         {/* Metric 2: Project Deadline Target */}
-        <div className="p-5 rounded-3xl bg-white border border-[#ECE0D0] shadow-xs">
-          <div className="flex items-center justify-between gap-2 mb-2">
+        <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-[#ECE0D0] shadow-xs">
+          <div className="flex items-center justify-between gap-2 mb-1.5">
             <span className="text-xs font-bold text-stone-500">Tenggat Proyek</span>
-            <span className="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
-              <Flag className="w-4 h-4" />
+            <span className="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 flex items-center justify-center">
+              <Flag className="w-3.5 h-3.5" />
             </span>
           </div>
-          <div className="text-lg sm:text-xl font-black text-stone-900 truncate">
+          <div className="text-base sm:text-lg font-black text-stone-900 truncate">
             {project?.deadline ? (
               new Date(project.deadline).toLocaleDateString('id-ID', {
                 day: 'numeric',
@@ -235,38 +235,38 @@ export const ProjectOverview = ({
               'Belum diatur'
             )}
           </div>
-          <div className="text-[11px] font-bold mt-2 flex items-center gap-1.5 text-rose-700">
-            <span className="w-2 h-2 rounded-full bg-rose-500 shrink-0" />
+          <div className="text-[10px] font-bold mt-1.5 flex items-center gap-1.5 text-rose-700">
+            <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0" />
             <span>{projectRemainingDays || 'Atur tenggat di proyek'}</span>
           </div>
         </div>
 
         {/* Metric 3: Urgent Targets (Within 7 Days) */}
-        <div className="p-5 rounded-3xl bg-white border border-[#ECE0D0] shadow-xs">
-          <div className="flex items-center justify-between gap-2 mb-2">
-            <span className="text-xs font-bold text-stone-500">Target Mendekati Tenggat</span>
-            <span className="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
-              <AlertTriangle className="w-4 h-4" />
+        <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-[#ECE0D0] shadow-xs">
+          <div className="flex items-center justify-between gap-2 mb-1.5">
+            <span className="text-xs font-bold text-stone-500">Mendekati Tenggat</span>
+            <span className="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+              <AlertTriangle className="w-3.5 h-3.5" />
             </span>
           </div>
-          <div className="text-2xl font-black text-stone-900">{activeUrgentTasksCount} Target</div>
-          <div className="text-[11px] text-stone-500 mt-2 font-medium flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-amber-500 shrink-0" />
+          <div className="text-xl sm:text-2xl font-black text-stone-900">{activeUrgentTasksCount} Target</div>
+          <div className="text-[10px] text-stone-500 mt-1.5 font-medium flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500 shrink-0" />
             <span>Tenggat dalam 7 hari ke depan</span>
           </div>
         </div>
 
         {/* Metric 4: Team & Stages */}
-        <div className="p-5 rounded-3xl bg-white border border-[#ECE0D0] shadow-xs">
-          <div className="flex items-center justify-between gap-2 mb-2">
+        <div className="p-3.5 sm:p-4 rounded-2xl bg-white border border-[#ECE0D0] shadow-xs">
+          <div className="flex items-center justify-between gap-2 mb-1.5">
             <span className="text-xs font-bold text-stone-500">Tahap & Anggota</span>
-            <span className="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-              <Users className="w-4 h-4" />
+            <span className="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <Users className="w-3.5 h-3.5" />
             </span>
           </div>
-          <div className="text-2xl font-black text-stone-900">{stages.length} Tahap WBS</div>
-          <div className="text-[11px] text-stone-500 mt-2 font-medium flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+          <div className="text-xl sm:text-2xl font-black text-stone-900">{stages.length} Tahap WBS</div>
+          <div className="text-[10px] text-stone-500 mt-1.5 font-medium flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
             <span>{members.length} Anggota tim aktif</span>
           </div>
         </div>
@@ -284,27 +284,27 @@ export const ProjectOverview = ({
       />
 
       {/* 4. Dual Section: Stages Progress Breakdown & Critical Path Alert */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3.5 sm:gap-4 items-start">
         {/* Stages Breakdown Preview */}
-        <div className="bg-white border border-[#ECE0D0] rounded-3xl p-6 shadow-xs">
-          <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[#F2E8DC]">
+        <div className="bg-white border border-[#ECE0D0] rounded-2xl p-4 sm:p-5 shadow-xs">
+          <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#F2E8DC]">
             <div className="flex items-center gap-2">
-              <Layers className="w-4.5 h-4.5 text-orange-500" />
-              <h3 className="text-sm font-bold text-stone-900">
+              <Layers className="w-4 h-4 text-orange-500" />
+              <h3 className="text-xs font-bold text-stone-900 uppercase tracking-wider">
                 Progres Tahapan WBS ({stages.length})
               </h3>
             </div>
             <button
               type="button"
               onClick={() => onNavigateTab('wbs')}
-              className="text-xs font-semibold text-orange-600 hover:text-orange-700 flex items-center gap-1 cursor-pointer"
+              className="text-[11px] font-semibold text-orange-600 hover:text-orange-700 flex items-center gap-1 cursor-pointer"
             >
               <span>Selengkapnya</span>
               <ArrowRight className="w-3 h-3" />
             </button>
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-2">
             {stages.map((stage) => {
               const stageTasks = tasks.filter((t) => t.stage_id === stage.id);
               const done = stageTasks.filter((t) => t.status === 'Done').length;
@@ -314,23 +314,23 @@ export const ProjectOverview = ({
               return (
                 <div
                   key={stage.id}
-                  className="p-3.5 rounded-2xl bg-[#FAF7F2] border border-[#ECE0D0] space-y-2"
+                  className="p-2.5 rounded-xl bg-[#FAF7F2] border border-[#ECE0D0] space-y-1.5"
                 >
                   <div className="flex items-center justify-between text-xs">
                     <div className="flex items-center gap-2 font-bold text-stone-900">
-                      <span className="w-6 h-6 rounded-lg bg-orange-100 text-orange-700 flex items-center justify-center text-[11px] shrink-0">
+                      <span className="w-5 h-5 rounded-md bg-orange-100 text-orange-700 flex items-center justify-center text-[10px] shrink-0 font-bold">
                         {stage.stage_order}
                       </span>
-                      <span>{stage.name}</span>
+                      <span className="truncate">{stage.name}</span>
                     </div>
-                    <div className="flex items-center gap-2 font-semibold text-stone-600 text-[11px]">
+                    <div className="flex items-center gap-2 font-semibold text-stone-600 text-[11px] shrink-0">
                       <span>{stageTasks.length} Tugas ({done} selesai)</span>
                       <span className="text-emerald-700 font-bold">{percent}%</span>
                     </div>
                   </div>
-                  <div className="w-full bg-[#EADCCB] rounded-full h-1.5 overflow-hidden">
+                  <div className="w-full bg-[#EADCCB] rounded-full h-1 overflow-hidden">
                     <div
-                      className="bg-orange-500 h-1.5 rounded-full transition-all duration-300"
+                      className="bg-orange-500 h-1 rounded-full transition-all duration-300"
                       style={{ width: `${percent}%` }}
                     />
                   </div>
@@ -339,7 +339,7 @@ export const ProjectOverview = ({
             })}
 
             {stages.length === 0 && (
-              <div className="py-6 text-center text-xs text-stone-400">
+              <div className="py-4 text-center text-xs text-stone-400">
                 Belum ada tahap WBS yang dibuat.{' '}
                 {isLeader && (
                   <button
@@ -356,35 +356,35 @@ export const ProjectOverview = ({
         </div>
 
         {/* Critical Path Tasks Snapshot */}
-        <div className="bg-white border border-[#ECE0D0] rounded-3xl p-6 shadow-xs">
-          <div className="flex items-center justify-between pb-3.5 mb-4 border-b border-[#F2E8DC]">
+        <div className="bg-white border border-[#ECE0D0] rounded-2xl p-4 sm:p-5 shadow-xs">
+          <div className="flex items-center justify-between pb-2.5 mb-3 border-b border-[#F2E8DC]">
             <div className="flex items-center gap-2">
-              <AlertTriangle className="w-4.5 h-4.5 text-amber-500" />
-              <h3 className="text-sm font-bold text-stone-900">
+              <AlertTriangle className="w-4 h-4 text-amber-500" />
+              <h3 className="text-xs font-bold text-stone-900 uppercase tracking-wider">
                 Jalur Kritis Capstone (Critical Path)
               </h3>
             </div>
             <button
               type="button"
               onClick={() => onNavigateTab('dashboard')}
-              className="text-xs font-semibold text-orange-600 hover:text-orange-700 flex items-center gap-1 cursor-pointer"
+              className="text-[11px] font-semibold text-orange-600 hover:text-orange-700 flex items-center gap-1 cursor-pointer"
             >
               <span>Dasbor Lengkap</span>
               <ArrowRight className="w-3 h-3" />
             </button>
           </div>
 
-          <div className="space-y-2.5">
+          <div className="space-y-2">
             {criticalTasks.slice(0, 3).map((task) => (
               <div
                 key={task.id}
-                className="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-200/90 flex items-center justify-between gap-3 text-xs"
+                className="p-2.5 rounded-xl bg-amber-50/70 border border-amber-200/90 flex items-center justify-between gap-2.5 text-xs"
               >
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <span className="w-2.5 h-2.5 rounded-full bg-amber-500 shrink-0" />
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className="w-2 h-2 rounded-full bg-amber-500 shrink-0" />
                   <div className="min-w-0">
                     <h5 className="font-bold text-stone-900 truncate">{task.title}</h5>
-                    <div className="flex items-center gap-2 text-[11px] text-stone-500 mt-0.5">
+                    <div className="flex items-center gap-1.5 text-[10px] text-stone-500 mt-0.5">
                       <span>{task.stage_name}</span>
                       <span>•</span>
                       <span>
@@ -396,10 +396,10 @@ export const ProjectOverview = ({
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 shrink-0">
+                <div className="flex items-center gap-1.5 shrink-0">
                   <StatusBadge status={task.status} />
                   {task.due_date && (
-                    <span className="font-semibold text-stone-700 bg-white px-2 py-0.5 rounded-lg border border-amber-200 text-[11px]">
+                    <span className="font-semibold text-stone-700 bg-white px-1.5 py-0.5 rounded-md border border-amber-200 text-[10px]">
                       {new Date(task.due_date).toLocaleDateString('id-ID', {
                         day: 'numeric',
                         month: 'short',
@@ -411,7 +411,7 @@ export const ProjectOverview = ({
             ))}
 
             {criticalTasks.length === 0 && (
-              <div className="py-6 text-center text-xs text-stone-500">
+              <div className="py-4 text-center text-xs text-stone-500">
                 Tidak ada tugas jalur kritis yang mendesak saat ini. Semua tugas jalur kritis telah selesai atau belum memiliki prasyarat.
               </div>
             )}

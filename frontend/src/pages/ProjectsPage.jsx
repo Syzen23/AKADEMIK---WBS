@@ -73,25 +73,25 @@ export const ProjectsPage = () => {
         onOpenJoinProject={() => setIsJoinOpen(true)}
       />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-6">
         {/* Welcome Warm Banner (Styled like reference hero) */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FFF5EC] via-white to-[#FDF7F0] border border-[#EEDDCC] p-5 sm:p-9 mb-8 shadow-xs">
+        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#FFF5EC] via-white to-[#FDF7F0] border border-[#EEDDCC] p-4 sm:p-6 mb-5 shadow-xs">
           <div className="relative z-10 max-w-2xl">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] sm:text-xs font-bold bg-orange-100/80 text-orange-700 border border-orange-200 mb-3 sm:mb-3.5">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-orange-100/80 text-orange-700 border border-orange-200 mb-2.5">
               <Sparkles className="w-3.5 h-3.5 text-orange-600 shrink-0" />
               <span>Sistem Manajemen Proyek Akademik</span>
             </span>
-            <h1 className="text-xl sm:text-3xl font-extrabold text-stone-900 tracking-tight leading-tight">
+            <h1 className="text-xl sm:text-2xl font-black text-stone-900 tracking-tight leading-snug">
               Selamat datang, <span className="text-orange-500">{user?.name}</span>!
             </h1>
-            <p className="mt-2 text-xs sm:text-sm text-stone-600 leading-relaxed font-medium">
+            <p className="mt-1.5 text-xs sm:text-sm text-stone-600 leading-relaxed font-medium">
               Pantau tahapan WBS, hilangkan hambatan pengerjaan (*task paralysis*), dan pastikan pembagian kontribusi jam kerja kelompok transparan.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 sm:gap-3 mt-5 sm:mt-6">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 mt-4 sm:mt-5">
               <button
                 onClick={() => setIsCreateOpen(true)}
-                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold text-white bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/25 transition-all hover:scale-[1.02] cursor-pointer"
+                className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/25 transition-all hover:scale-[1.02] cursor-pointer"
               >
                 <Plus className="w-4 h-4 shrink-0" />
                 <span>Buat Ruang Proyek Baru</span>
@@ -99,7 +99,7 @@ export const ProjectsPage = () => {
 
               <button
                 onClick={() => setIsJoinOpen(true)}
-                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-2xl text-xs font-bold text-orange-700 bg-white hover:bg-orange-50 border-2 border-orange-300 transition-all cursor-pointer shadow-xs"
+                className="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-orange-700 bg-white hover:bg-orange-50 border-2 border-orange-300 transition-all cursor-pointer shadow-xs"
               >
                 <KeyRound className="w-4 h-4 text-orange-500 shrink-0" />
                 <span>Gabung via Kode Invite</span>
@@ -109,11 +109,11 @@ export const ProjectsPage = () => {
         </div>
 
         {/* Section title */}
-        <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center justify-between mb-4">
           <div>
-            <h2 className="text-lg font-extrabold text-stone-900 flex items-center gap-2">
-              <FolderKanban className="w-5 h-5 text-orange-500" />
-              Daftar Proyek Akademik ({projects.length})
+            <h2 className="text-base sm:text-lg font-extrabold text-stone-900 flex items-center gap-2">
+              <FolderKanban className="w-4.5 h-4.5 text-orange-500" />
+              <span>Daftar Proyek Akademik ({projects.length})</span>
             </h2>
             <p className="text-xs text-stone-500 font-medium">
               Proyek tugas akhir yang Anda kelola sebagai ketua atau ikuti sebagai anggota
@@ -123,16 +123,16 @@ export const ProjectsPage = () => {
 
         {/* Projects Grid */}
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="h-56 rounded-3xl bg-white/60 border border-[#ECE0D0] animate-pulse"
+                className="h-48 rounded-2xl bg-white/60 border border-[#ECE0D0] animate-pulse"
               />
             ))}
           </div>
         ) : projects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {projects.map((proj) => {
               const deadlineDate = proj.deadline
                 ? new Date(proj.deadline).toLocaleDateString('id-ID', {
@@ -146,7 +146,7 @@ export const ProjectsPage = () => {
                 <Link
                   key={proj.id}
                   to={`/projects/${proj.id}`}
-                  className="group relative bg-white hover:bg-[#FFFCF9] border border-[#ECE0D0] hover:border-orange-300 rounded-3xl p-6 shadow-xs hover:shadow-md hover:shadow-orange-950/5 transition-all flex flex-col justify-between cursor-pointer"
+                  className="group relative bg-white hover:bg-[#FFFCF9] border border-[#ECE0D0] hover:border-orange-300 rounded-2xl p-4 sm:p-5 shadow-xs hover:shadow-md hover:shadow-orange-950/5 transition-all flex flex-col justify-between cursor-pointer"
                 >
                   <div>
                     {/* Top row */}

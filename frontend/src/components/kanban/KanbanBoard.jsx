@@ -46,13 +46,13 @@ export const KanbanBoard = ({
   ];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
       {/* If no stages exist, guide user to create first stage */}
       {stages.length === 0 && (
-        <div className="p-5 rounded-3xl bg-amber-50/90 border border-amber-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="p-4 rounded-2xl bg-amber-50/90 border border-amber-200/90 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-start gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 border border-amber-200">
-              <Layers className="w-5 h-5" />
+            <div className="w-9 h-9 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0 border border-amber-200">
+              <Layers className="w-4.5 h-4.5" />
             </div>
             <div>
               <h4 className="text-sm font-bold text-amber-900">Belum Ada Tahap WBS di Proyek Ini</h4>
@@ -65,26 +65,26 @@ export const KanbanBoard = ({
           {isLeader && onOpenCreateStage && (
             <button
               onClick={onOpenCreateStage}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-2xl text-xs font-bold text-white bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/20 shrink-0 transition-all cursor-pointer"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-white bg-orange-500 hover:bg-orange-600 shadow-md shadow-orange-500/20 shrink-0 transition-all cursor-pointer"
             >
-              <Plus className="w-4 h-4" />
-              <span>Buat Tahap WBS Sekarang</span>
+              <Plus className="w-3.5 h-3.5" />
+              <span>Buat Tahap WBS</span>
             </button>
           )}
         </div>
       )}
 
       {/* Filter Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-white p-3.5 sm:p-4 rounded-3xl border border-[#ECE0D0] shadow-xs">
+      <div className="flex flex-wrap items-center justify-between gap-2.5 bg-white p-3 sm:p-3.5 rounded-2xl border border-[#ECE0D0] shadow-xs">
         {/* Search Bar */}
         <div className="relative w-full sm:flex-1 sm:max-w-sm min-w-0">
-          <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-3" />
+          <Search className="w-4 h-4 text-stone-400 absolute left-3.5 top-2.5" />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Cari nama tugas atau anggota..."
-            className="w-full pl-10 pr-8 py-2 rounded-2xl bg-[#FAF7F2] border border-[#E8DACB] text-stone-900 text-xs focus:border-orange-500 focus:bg-white focus:outline-none transition-all placeholder:text-stone-400"
+            className="w-full pl-9 pr-8 py-1.5 rounded-xl bg-[#FAF7F2] border border-[#E8DACB] text-stone-900 text-xs focus:border-orange-500 focus:bg-white focus:outline-none transition-all placeholder:text-stone-400"
           />
           {searchQuery && (
             <button
@@ -151,7 +151,7 @@ export const KanbanBoard = ({
       </div>
 
       {/* 4 Kanban Columns */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 items-start">
         {columns.map((col) => (
           <KanbanColumn
             key={col.status}

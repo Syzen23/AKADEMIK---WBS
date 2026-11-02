@@ -224,12 +224,12 @@ export const ProjectCalendarCanvas = ({
   };
 
   return (
-    <div className="bg-white border border-[#ECE0D0] rounded-3xl p-3.5 sm:p-7 shadow-xs space-y-6">
+    <div className="bg-white border border-[#ECE0D0] rounded-2xl p-3.5 sm:p-5 shadow-xs space-y-4">
       {/* Calendar Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 sm:pb-5 border-b border-[#F2E8DC]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-2.5 sm:pb-3 border-b border-[#F2E8DC]">
         <div>
-          <h2 className="text-lg font-black text-stone-900 flex items-center gap-2">
-            <CalendarIcon className="w-5 h-5 text-orange-500" />
+          <h2 className="text-sm sm:text-base font-black text-stone-900 flex items-center gap-2">
+            <CalendarIcon className="w-4.5 h-4.5 text-orange-500" />
             <span>Canvas Kalender & Target Progres</span>
           </h2>
           <p className="text-xs text-stone-500 mt-0.5">
@@ -238,11 +238,11 @@ export const ProjectCalendarCanvas = ({
         </div>
 
         {/* Month Navigator Controls */}
-        <div className="flex items-center gap-2 self-start sm:self-auto flex-wrap">
+        <div className="flex items-center gap-1.5 self-start sm:self-auto flex-wrap">
           <button
             type="button"
             onClick={handleJumpToToday}
-            className="px-3 py-1.5 rounded-xl text-xs font-bold bg-[#FAF7F2] hover:bg-orange-50 text-stone-700 hover:text-orange-600 border border-[#E8DACB] transition-colors cursor-pointer"
+            className="px-2.5 py-1 rounded-lg text-xs font-bold bg-[#FAF7F2] hover:bg-orange-50 text-stone-700 hover:text-orange-600 border border-[#E8DACB] transition-colors cursor-pointer"
           >
             Hari Ini
           </button>
@@ -251,40 +251,40 @@ export const ProjectCalendarCanvas = ({
             <button
               type="button"
               onClick={handleJumpToDeadline}
-              className="px-3 py-1.5 rounded-xl text-xs font-bold bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 transition-colors cursor-pointer flex items-center gap-1"
+              className="px-2.5 py-1 rounded-lg text-xs font-bold bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 transition-colors cursor-pointer flex items-center gap-1"
               title={`Tenggat Proyek: ${projectDeadlineKey}`}
             >
-              <Flag className="w-3.5 h-3.5 text-rose-600" />
+              <Flag className="w-3 h-3 text-rose-600" />
               <span>Tenggat Proyek</span>
             </button>
           )}
 
-          <div className="flex items-center bg-[#FAF7F2] border border-[#E8DACB] rounded-xl p-0.5">
+          <div className="flex items-center bg-[#FAF7F2] border border-[#E8DACB] rounded-lg p-0.5">
             <button
               type="button"
               onClick={handlePrevMonth}
-              className="p-1 rounded-lg text-stone-600 hover:text-orange-600 hover:bg-white transition-colors cursor-pointer"
+              className="p-1 rounded-md text-stone-600 hover:text-orange-600 hover:bg-white transition-colors cursor-pointer"
               title="Bulan sebelumnya"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-3.5 h-3.5" />
             </button>
-            <span className="px-2.5 text-xs font-black text-stone-900 min-w-[125px] text-center">
+            <span className="px-2 text-xs font-black text-stone-900 min-w-[110px] text-center">
               {MONTH_NAMES[currentMonth]} {currentYear}
             </span>
             <button
               type="button"
               onClick={handleNextMonth}
-              className="p-1 rounded-lg text-stone-600 hover:text-orange-600 hover:bg-white transition-colors cursor-pointer"
+              className="p-1 rounded-md text-stone-600 hover:text-orange-600 hover:bg-white transition-colors cursor-pointer"
               title="Bulan berikutnya"
             >
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
       </div>
 
       {/* Main Grid: Calendar on Left, Agenda/Targets on Right */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3.5 sm:gap-4 items-start">
         {/* Left Column: Calendar Canvas (7 cols) */}
         <div className="lg:col-span-7 xl:col-span-8 space-y-3">
           {/* Day Names Row */}
@@ -315,7 +315,7 @@ export const ProjectCalendarCanvas = ({
                 <div
                   key={cell.dateKey}
                   onClick={() => setSelectedDateKey(cell.dateKey)}
-                  className={`min-h-[64px] sm:min-h-[92px] p-1 sm:p-1.5 rounded-xl sm:rounded-2xl border transition-all duration-150 cursor-pointer flex flex-col justify-between ${
+                  className={`min-h-[56px] sm:min-h-[72px] p-1 sm:p-1.5 rounded-xl border transition-all duration-150 cursor-pointer flex flex-col justify-between ${
                     cell.isCurrentMonth
                       ? 'bg-white hover:bg-orange-50/40 text-stone-800'
                       : 'bg-stone-50/50 text-stone-400 opacity-60'
@@ -410,7 +410,7 @@ export const ProjectCalendarCanvas = ({
         </div>
 
         {/* Right Column: Target & Agenda Details (5 cols) */}
-        <div className="lg:col-span-5 xl:col-span-4 bg-[#FAF7F2] border border-[#ECE0D0] rounded-2xl p-4.5 space-y-4">
+        <div className="lg:col-span-5 xl:col-span-4 bg-[#FAF7F2] border border-[#ECE0D0] rounded-xl p-3.5 space-y-3">
           {/* Header & Mode Switch */}
           <div className="flex items-center justify-between pb-3 border-b border-[#E8DACB]">
             <div>
