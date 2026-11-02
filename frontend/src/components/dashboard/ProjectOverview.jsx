@@ -325,76 +325,7 @@ export const ProjectOverview = ({
             </div>
           </div>
 
-          {/* Card 2: Aksi Cepat & Kode Undangan */}
-          <div className="bg-white border border-slate-200/90 rounded-2xl p-3 shadow-sm space-y-2.5">
-            <div className="text-[10px] font-bold text-stone-400 uppercase tracking-wider px-1">
-              Aksi Cepat & Undangan
-            </div>
-
-            {isLeader && (
-              <div className="space-y-1.5">
-                <button
-                  type="button"
-                  onClick={onOpenCreateTask}
-                  className="w-full flex items-center justify-center gap-1.5 px-3 py-2 text-xs font-bold text-white bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 rounded-xl shadow-xs transition-all cursor-pointer"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                  <span>Tambah Tugas Baru</span>
-                </button>
-
-                <div className="grid grid-cols-2 gap-1.5">
-                  <button
-                    type="button"
-                    onClick={onOpenCreateStage}
-                    className="flex items-center justify-center gap-1 px-2 py-1.5 text-[11px] font-semibold text-stone-700 hover:text-orange-600 bg-slate-50 hover:bg-orange-50 border border-slate-200 rounded-xl transition-all cursor-pointer"
-                  >
-                    <Plus className="w-3 h-3 text-orange-500" />
-                    <span>Tahap WBS</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={onOpenAssetModal}
-                    className="flex items-center justify-center gap-1 px-2 py-1.5 text-[11px] font-semibold text-stone-700 hover:text-orange-600 bg-slate-50 hover:bg-orange-50 border border-slate-200 rounded-xl transition-all cursor-pointer"
-                  >
-                    <Plus className="w-3 h-3 text-orange-500" />
-                    <span>Tautkan Aset</span>
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Kode Undangan */}
-            <div className="p-2.5 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-2">
-              <div className="min-w-0">
-                <div className="text-[9px] font-bold text-stone-400 uppercase">Kode Undangan</div>
-                <div className="font-mono text-xs font-extrabold text-orange-700 tracking-wider truncate">
-                  {project.invite_code}
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={onCopyInviteCode}
-                className="px-2.5 py-1 text-[11px] font-bold rounded-lg bg-white hover:bg-orange-50 border border-slate-200 text-stone-700 hover:text-orange-600 transition-colors cursor-pointer shrink-0"
-                title="Salin kode undangan"
-              >
-                {copiedCode ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
-              </button>
-            </div>
-
-            {/* Hapus Proyek leader button */}
-            {isLeader && onDeleteProject && (
-              <button
-                type="button"
-                onClick={onDeleteProject}
-                className="w-full flex items-center justify-center gap-1 py-1 text-[10px] font-semibold text-rose-600 hover:text-rose-700 hover:bg-rose-50 rounded-lg transition-colors cursor-pointer"
-              >
-                <Trash2 className="w-3 h-3" />
-                <span>Hapus Ruang Proyek</span>
-              </button>
-            )}
-          </div>
-
-          {/* Card 3: Tahapan WBS Snapshot */}
+          {/* Card 2: Tahapan WBS Snapshot (Maksimal 4, selebihnya disembunyikan) */}
           <div className="bg-white border border-slate-200/90 rounded-2xl p-3.5 shadow-sm space-y-2.5">
             <div className="flex items-center justify-between pb-2 border-b border-slate-100">
               <div className="flex items-center gap-1.5 font-extrabold text-xs text-stone-900">
@@ -406,13 +337,13 @@ export const ProjectOverview = ({
                 onClick={() => onNavigateTab('wbs')}
                 className="text-[10px] font-bold text-orange-600 hover:text-orange-700 flex items-center gap-0.5 cursor-pointer"
               >
-                <span>Buka WBS</span>
+                <span>Lihat Detail</span>
                 <ArrowRight className="w-3 h-3" />
               </button>
             </div>
 
-            <div className="space-y-1.5 max-h-[175px] overflow-y-auto pr-0.5">
-              {stages.map((stage) => {
+            <div className="space-y-1.5">
+              {stages.slice(0, 4).map((stage) => {
                 const stageTasks = tasks.filter((t) => t.stage_id === stage.id);
                 const done = stageTasks.filter((t) => t.status === 'Done').length;
                 const percent = stageTasks.length > 0 ? Math.round((done / stageTasks.length) * 100) : 0;
@@ -431,6 +362,21 @@ export const ProjectOverview = ({
                   </div>
                 );
               })}
+
+              {/* Jika lebih dari 4, sembunyikan dan tampilkan tombol ++ / lihat detail agar layout tidak memanjang kebawah */}
+              {stages.length > 4 && (
+                <button
+                  type="button"
+                  onClick={() => onNavigateTab('wbs')}
+                  className="w-full py-1.5 px-2 mt-1 rounded-xl bg-orange-50 hover:bg-orange-100/90 text-orange-700 text-[11px] font-bold border border-orange-200/80 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                  title="Lihat seluruh tahapan WBS di tab WBS"
+                >
+                  <span>+{stages.length - 4} Tahap Lainnya</span>
+                  <span>•</span>
+                  <span>Lihat Detail</span>
+                  <ArrowRight className="w-3 h-3" />
+                </button>
+              )}
 
               {stages.length === 0 && (
                 <div className="text-center py-3 text-[11px] text-stone-400">
